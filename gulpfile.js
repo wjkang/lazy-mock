@@ -2,17 +2,18 @@ const gulp = require('gulp')
 const eslint = require('gulp-eslint')
 const nodemon = require('gulp-nodemon')
 const friendlyFormatter = require('eslint-friendly-formatter')
+const nunjucksRender = require('gulp-nunjucks-render');
 
 var jsScript = 'node'
 if (process.env.npm_config_argv !== undefined && process.env.npm_config_argv.indexOf('debug') > 0) {
   jsScript = 'node debug'
 }
 
-function lintOne (aims) {
+function lintOne(aims) {
   console.log('ESlint:' + aims)
   console.time('Finished eslint')
   return gulp.src(aims)
-    .pipe(eslint({configFile: './.eslintrc.js'}))
+    .pipe(eslint({ configFile: './.eslintrc.js' }))
     .pipe(eslint.format(friendlyFormatter))
     .pipe(eslint.results(results => {
       // Called once for all ESLint results.
@@ -25,7 +26,7 @@ function lintOne (aims) {
 
 gulp.task('ESlint', () => {
   return gulp.src(['src/**/*.js', '!node_modules/**'])
-    .pipe(eslint({configFile: './.eslintrc.js'}))
+    .pipe(eslint({ configFile: './.eslintrc.js' }))
     .pipe(eslint.format(friendlyFormatter))
     // .pipe(eslint.failAfterError())
     .pipe(eslint.results(results => {
@@ -71,7 +72,7 @@ gulp.task('nodemon', function () {
       js: jsScript
     },
     verbose: true,
-    ignore: ['build/*.js', 'dist/*.js', 'nodemon.json', '.git', 'node_modules/**/node_modules', 'gulpfile.js','src/db'],
+    ignore: ['build/*.js', 'dist/*.js', 'nodemon.json', '.git', 'node_modules/**/node_modules', 'gulpfile.js', 'src/db', 'codeGenerate'],
     env: {
       NODE_ENV: 'development'
     },
@@ -82,3 +83,25 @@ gulp.task('nodemon', function () {
 gulp.task('default', ['ESlint', 'ESlint_nodemon'], function () {
   // console.log('ESlin检查完成')
 })
+
+gulp.task('code', function () {
+  return gulp.src('codeGenerate/templates/*.njk')
+    .pipe(nunjucksRender({
+      path: 'codeGenerate/templates',
+      data: {
+        test: "23232323"
+      },
+      envOptions: {
+        tags: {
+          blockStart: '<%',
+          blockEnd: '%>',
+          variableStart: '<$',
+          variableEnd: '$>',
+          commentStart: '<#',
+          commentEnd: '#>'
+        },
+      },
+      ext: '.js'
+    }))
+    .pipe(gulp.dest('codeGenerate/dist'));
+});
