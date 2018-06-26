@@ -1,6 +1,8 @@
+require('babel-register')
 const gulp = require('gulp')
 const eslint = require('gulp-eslint')
 const nodemon = require('gulp-nodemon')
+const rename = require('gulp-rename')
 const friendlyFormatter = require('eslint-friendly-formatter')
 const nunjucksRender = require('gulp-nunjucks-render');
 
@@ -8,6 +10,7 @@ var jsScript = 'node'
 if (process.env.npm_config_argv !== undefined && process.env.npm_config_argv.indexOf('debug') > 0) {
   jsScript = 'node debug'
 }
+const CodeGenerateConfig = require('./codeGenerate/config').default;
 
 function lintOne(aims) {
   console.log('ESlint:' + aims)
@@ -84,24 +87,36 @@ gulp.task('default', ['ESlint', 'ESlint_nodemon'], function () {
   // console.log('ESlin检查完成')
 })
 
+const nunjucksRenderConfig = {
+  path: 'codeGenerate/templates',
+  data: {
+    model: CodeGenerateConfig.model,
+    config: CodeGenerateConfig.config
+  },
+  envOptions: {
+    tags: {
+      blockStart: '<%',
+      blockEnd: '%>',
+      variableStart: '<$',
+      variableEnd: '$>',
+      commentStart: '<#',
+      commentEnd: '#>'
+    },
+  },
+  ext: '.js'
+}
+
+const ProjectRootPath = CodeGenerateConfig.config.ProjectRootPath;
+
 gulp.task('code', function () {
-  return gulp.src('codeGenerate/templates/*.njk')
-    .pipe(nunjucksRender({
-      path: 'codeGenerate/templates',
-      data: {
-        test: "23232323"
-      },
-      envOptions: {
-        tags: {
-          blockStart: '<%',
-          blockEnd: '%>',
-          variableStart: '<$',
-          variableEnd: '$>',
-          commentStart: '<#',
-          commentEnd: '#>'
-        },
-      },
-      ext: '.js'
-    }))
-    .pipe(gulp.dest('codeGenerate/dist'));
+
+  gulp.src('codeGenerate/templates/page.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename('index.jsx'))
+    .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.PageRelativePath));
+
+  return gulp.src('codeGenerate/templates/editModal.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename('edit'+CodeGenerateConfig.model.Name+'Modal.jsx'))
+    .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.PageRelativePath));
 });
