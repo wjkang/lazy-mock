@@ -1,9 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import CommonForm from '@/schema/CommonForm';
-
-
-class Edit<$ model.name|capitalize $>Modal extends React.PureComponent {
+class Edit<$ model.Name $>Modal extends React.PureComponent {
     onCancel = () => {
         this.props.onCancel();
     }
@@ -33,4 +31,4 @@ class Edit<$ model.name|capitalize $>Modal extends React.PureComponent {
     }
 }
 
-export default Edit<$ model.name|capitalize $>Modal;
+export default Edit<$ model.Name $>Modal;

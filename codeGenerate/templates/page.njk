@@ -1,15 +1,15 @@
 import React from 'react';
 import { Table, Popconfirm, Divider, Button, notification } from 'antd';
 import {
-    getRolePagedList,
-    delRole,
-    delRoles,
-    saveRole
+    get<$ model.Name $>PagedList,
+    del<$ model.Name $>,
+    del<$ model.Name $>s,
+    save<$ model.Name $>
 } from 'api';
 import SearchForm from '@/schema/SearchForm';
-import schema from '@/schema/role';
-import EditRoleModal from './editRoleModal';
-class Role extends React.PureComponent {
+import schema from '@/schema/<$ model.name $>';
+import Edit<$ model.Name $>Modal from './edit<$ model.Name $>Modal';
+class <$ model.Name $> extends React.PureComponent {
     state = {
         tableFilter: {
             name: "",
@@ -51,13 +51,13 @@ class Role extends React.PureComponent {
             return <div>
                 <a
                     href="javascript:;"
-                    onClick={() => this.editRole(record)}
+                    onClick={() => this.edit<$ model.Name $>(record)}
 
                 >
                     编辑
                 </a>
                 <Divider type="vertical" />
-                <Popconfirm title="确定删除?" onConfirm={() => this.delRole(record.id)}>
+                <Popconfirm title="确定删除?" onConfirm={() => this.del<$ model.Name $>(record.id)}>
                     <a href="javascript:;">删除</a>
                 </Popconfirm>
             </div>
@@ -110,15 +110,15 @@ class Role extends React.PureComponent {
     onSelectChange = (selectedRowKeys) => {
         this.setState({ tableSelectedRowKeys:selectedRowKeys });
     }
-    addRole = () => {
+    add<$ model.Name $> = () => {
         this.editFormData = {}
         this.setState({
             editModalVisible: true
         })
     }
-    batchDelRole = async () => {
+    batchDel<$ model.Name $> = async () => {
         try {
-            await delRoles({
+            await del<$ model.Name $>s({
                 ids: JSON.stringify(
                     this.state.tableSelectedRowKeys.map(s => {
                         return s;
@@ -137,15 +137,15 @@ class Role extends React.PureComponent {
         }
         this.refresh()
     }
-    editRole = (record) => {
+    edit<$ model.Name $> = (record) => {
         this.editFormData = { ...record };
         this.setState({
             editModalVisible: true
         })
     }
-    delRole = async (id) => {
+    del<$ model.Name $> = async (id) => {
         try {
-            await delRole({ id: id });
+            await del<$ model.Name $>({ id: id });
             notification.success({
                 placement: 'bottomLeft bottomRight',
                 message: '删除成功',
@@ -160,10 +160,10 @@ class Role extends React.PureComponent {
             editModalVisible: false
         });
     }
-    saveRole = async (data) => {
+    save<$ model.Name $> = async (data) => {
         let formData = { ...this.editFormData, ...data }
         try {
-            await saveRole(formData);
+            await save<$ model.Name $>(formData);
             this.setState({
                 editModalVisible: false
             });
@@ -189,7 +189,7 @@ class Role extends React.PureComponent {
     }
     fetch = async (query = {}) => {
         this.setState({ tableLoading: true });
-        let dataRes = await getRolePagedList(query);
+        let dataRes = await get<$ model.Name $>PagedList(query);
         let data = dataRes.data;
         const pagination = { ...this.state.tablePagination };
         pagination.total = data.totalCount;
@@ -203,7 +203,7 @@ class Role extends React.PureComponent {
         this.refresh()
     }
     render() {
-        console.log("Role render")
+        console.log("<$ model.Name $> render")
         const { tableSelectedRowKeys } = this.state;
         const rowSelection = {
             selectedRowKeys:tableSelectedRowKeys,
@@ -218,12 +218,12 @@ class Role extends React.PureComponent {
                     <Button
                         type="primary"
                         icon="plus-square-o"
-                        onClick={this.addRole}
+                        onClick={this.add<$ model.Name $>}
                     >
                         新增
                     </Button>
                     <Divider type="vertical" />
-                    <Popconfirm title="确定删除?" onConfirm={this.batchDelRole}>
+                    <Popconfirm title="确定删除?" onConfirm={this.batchDel<$ model.Name $>}>
                         <Button
                             type="danger"
                             disabled={!hasSelected}
@@ -244,7 +244,7 @@ class Role extends React.PureComponent {
                     scroll={{ x: 768 }}
                     bordered
                 />
-                <EditRoleModal
+                <Edit<$ model.Name $>Modal
                     visible={this.state.editModalVisible}
                     title={this.editFormData.id ? '编辑' : '新增'}
                     onCancel={this.editModalOnCancel}
@@ -253,11 +253,11 @@ class Role extends React.PureComponent {
                     schema={schema.editSchema}
                     uiSchema={schema.editUiSchema}
                     formData={this.editFormData}
-                    handFormSubmit={this.saveRole}
+                    handFormSubmit={this.save<$ model.Name $>}
                 />
             </div>
         );
     }
 }
 
-export default Role;
+export default <$ model.Name $>;
