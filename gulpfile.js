@@ -88,7 +88,7 @@ gulp.task('default', ['ESlint', 'ESlint_nodemon'], function () {
 })
 
 const nunjucksRenderConfig = {
-  path: 'codeGenerate/templates',
+  path: 'codeGenerate/serverTemplates',
   data: {
     model: CodeGenerateConfig.model,
     config: CodeGenerateConfig.config
@@ -107,6 +107,8 @@ const nunjucksRenderConfig = {
 }
 
 const ProjectRootPath = CodeGenerateConfig.config.ProjectRootPath;
+const ServerProjectRootPath = CodeGenerateConfig.config.ServerRootPath;
+const Model=CodeGenerateConfig.model;
 
 gulp.task('code', function () {
   gulp.src('codeGenerate/templates/schema/*.njk')
@@ -122,8 +124,25 @@ gulp.task('code', function () {
     .pipe(nunjucksRender(nunjucksRenderConfig))
     .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.ApiRelativePath));
 
-  return gulp.src('codeGenerate/templates/editModal.njk')
+  gulp.src('codeGenerate/templates/editModal.njk')
     .pipe(nunjucksRender(nunjucksRenderConfig))
     .pipe(rename('edit' + CodeGenerateConfig.model.Name + 'Modal.jsx'))
     .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.PageRelativePath));
+
+  //server
+  gulp.src('codeGenerate/serverTemplates/route.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename('main-routes.js'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.RouteRelativePath));
+
+  gulp.src('codeGenerate/serverTemplates/controller.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename(Model.name+'.js'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.ControllerRelativePath));
+
+  return gulp.src('codeGenerate/serverTemplates/service.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename(Model.name+'Service.js'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.ServiceRelativePath));
+
 });
