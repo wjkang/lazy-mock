@@ -1,0 +1,15 @@
+export default {
+    "$id": "<$ model.name $>-edit-schema",
+    "title": "<$ model.name $>-edit-schema",
+    "description": "<$ model.name $>-edit-schema.",
+    "type": "object",
+    "required": [],//可传给后端判断，暂时不使用此处配置检验前端表单,前端表单校验规则配置在uiSchema
+    "properties": {
+        <% for property in model.properties %>
+            "<$ property.key $>":{
+                "type":"<$ property.type $>",
+                "title":"<$ property.title $>"
+            },
+        <% endfor %>
+    }
+}

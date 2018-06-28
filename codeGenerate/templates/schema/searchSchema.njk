@@ -1,0 +1,17 @@
+export default {
+    "$id": "<$ model.name $>-search-schema",
+    "title": "<$ model.name $>-search-schema",
+    "description": "<$ model.name $>-search-schema.",
+    "type": "object",
+    "required": [],
+    "properties": {
+        <% for property in model.properties %>
+           <% if property.search %>
+            "<$ property.key $>":{
+                "type":"<$ property.type $>",
+                "title":"<$ property.title $>"
+            },
+           <% endif %>
+        <% endfor %>
+    }
+}

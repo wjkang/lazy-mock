@@ -1,0 +1,15 @@
+export default {
+    <% for property in model.properties %>
+        <% if property.search %>
+           "<$ property.key $>":{
+               "ui:widget": "input",
+                "ui:options": {
+                    "type": "text",
+                    "placeholder": "<$ property.title $>查询"
+                },
+                "ui:title": "<$ property.title $>",
+                "ui:description": ""
+           },
+        <% endif%>
+    <% endfor %>
+}

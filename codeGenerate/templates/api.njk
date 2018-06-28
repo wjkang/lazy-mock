@@ -1,0 +1,44 @@
+//<$ model.name $>
+
+export function get<$ model.Name $>(query) {
+  return request({
+    url: '/<$ model.name $>',
+    method: 'get',
+    params: query
+  })
+}
+
+export function get<$ model.Name $>PagedList(query) {
+  return request({
+    url: '/<$ model.name $>/pagedlist',
+    method: 'get',
+    params: query
+  })
+}
+
+export function del<$ model.Name $>(id) {
+  return request({
+    url: '/<$ model.name $>/del',
+    method: 'delete',
+    params: id,
+    loading: "message"
+  })
+}
+
+export function del<$ model.Name $>s(ids) {
+  return request({
+    url: '/<$ model.name $>/batchdel',
+    method: 'delete',
+    params: ids,
+    loading: "message"
+  })
+}
+
+export function save<$ model.Name $>(data) {
+  return request({
+    url: '/<$ model.name $>/save',
+    method: 'post',
+    data: data,
+    loading: "message"
+  })
+}

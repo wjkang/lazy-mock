@@ -12,8 +12,11 @@ import Edit<$ model.Name $>Modal from './edit<$ model.Name $>Modal';
 class <$ model.Name $> extends React.PureComponent {
     state = {
         tableFilter: {
-            name: "",
-            code: ""
+            <% for property in model.properties %>
+              <% if property.search %>
+                 <$ property.key $>:"",
+              <% endif %>
+            <% endfor %>
         },
         searchFormExpand: true,
         tableSelectedRowKeys: [],
@@ -32,16 +35,16 @@ class <$ model.Name $> extends React.PureComponent {
         tableLoading: false,
         editModalVisible: false
     }
-    columns = [{
-        title: '角色名称',
-        dataIndex: 'name',
+    columns = [
+    <% for property in model.properties %>
+     <% if property.table %>
+       {
+        title: '<$ property.title $>',
+        dataIndex: '<$ property.key $>',
         sorter: true
-    },
-    {
-        title: '角色编码',
-        dataIndex: 'code',
-        sorter: true
-    },
+       },
+     <% endif %>
+    <% endfor %>
     {
         title: '操作',
         dataIndex: 'id',
