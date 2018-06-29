@@ -16,7 +16,7 @@ export let get<$ model.Name $>PagedList = async (ctx, next) => {
     let descending = ctx.query.descending
     let filter ={
         <% for property in model.properties %>
-          <$ property.key $>=ctx.query.<$ property.key $>
+          <$ property.key $>:ctx.query.<$ property.key $>
         <% endfor %>
     }
     let pagedList = await <$ model.name $>Service.get<$ model.Name $>PagedList(pageIndex, pageSize, sortBy, descending, filter)
