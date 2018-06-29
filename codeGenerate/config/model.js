@@ -9,6 +9,10 @@ export default {
         {
             key:"name",
             title:"书名"
+        },
+        {
+            key:"press",
+            title:"出版社"
         }
     ]
 }
