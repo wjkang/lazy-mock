@@ -1,4 +1,5 @@
-.get('/<$ model.name $>/pagedlist',controllers.<$ model.name $>.get<$ model.Name $>PagedList)
+.get('/<$ model.name $>/get',controllers.<$ model.name $>.get<$ model.Name $>)
+.get('/<$ model.name $>/paged',controllers.<$ model.name $>.get<$ model.Name $>PagedList)
 .del('/<$ model.name $>/del',controllers.<$ model.name $>.del<$ model.Name $>)
 .del('/<$ model.name $>/batchdel',controllers.<$ model.name $>.del<$ model.Name $>s)
 .post('/<$ model.name $>/save',controllers.<$ model.name $>.save<$ model.Name $>)

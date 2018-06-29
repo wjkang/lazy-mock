@@ -1,12 +1,24 @@
 import <$ model.name $>Service from '../services/<$ model.name $>Service'
 import * as responseTemplate from '../lib/responseTemplate'
 
+export let get<$ model.Name $> = async (ctx) => {
+    let id = ctx.query.id
+    let <$ model.name $> = await <$ model.name $>Service.get<$ model.Name $>(id)
+    if (!<$ model.name $>) {
+        return responseTemplate.businessError(ctx, "<$ model.name $>不存在!")
+    }
+    return responseTemplate.success(ctx, post)
+}
 export let get<$ model.Name $>PagedList = async (ctx, next) => {
     let pageIndex = ctx.query.pageIndex
     let pageSize = ctx.query.pageSize
     let sortBy = ctx.query.sortBy
     let descending = ctx.query.descending
-    let filter = JSON.parse(ctx.query.filter)
+    let filter ={
+        <% for property in model.properties %>
+          <$ property.key $>=ctx.query.<$ property.key $>
+        <% endfor %>
+    }
     let pagedList = await <$ model.name $>Service.get<$ model.Name $>PagedList(pageIndex, pageSize, sortBy, descending, filter)
     responseTemplate.success(ctx, pagedList)
     return next()
