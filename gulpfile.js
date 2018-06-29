@@ -108,23 +108,33 @@ const nunjucksRenderConfig = {
 
 const ProjectRootPath = CodeGenerateConfig.config.ProjectRootPath;
 const ServerProjectRootPath = CodeGenerateConfig.config.ServerRootPath;
-const Model=CodeGenerateConfig.model;
+const Model = CodeGenerateConfig.model;
 
 gulp.task('code', function () {
   //server
-  gulp.src('codeGenerate/serverTemplates/route.njk')
+  gulp.src('codeGenerate/serverTemplates/controller.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename(Model.name + '.js'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.ControllerRelativePath));
+
+  gulp.src('codeGenerate/serverTemplates/service.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename(Model.name + 'Service.js'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.ServiceRelativePath));
+
+  gulp.src('codeGenerate/serverTemplates/model.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename(Model.name + 'Model.js'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.ModelRelativePath));
+
+  gulp.src('codeGenerate/serverTemplates/db.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename(Model.name + '_db.json'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.DBRelativePath));
+
+  return gulp.src('codeGenerate/serverTemplates/route.njk')
     .pipe(nunjucksRender(nunjucksRenderConfig))
     .pipe(rename('new-routes.js'))
     .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.RouteRelativePath));
-
-  gulp.src('codeGenerate/serverTemplates/controller.njk')
-    .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(rename(Model.name+'.js'))
-    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.ControllerRelativePath));
-
-  return gulp.src('codeGenerate/serverTemplates/service.njk')
-    .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(rename(Model.name+'Service.js'))
-    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.ServiceRelativePath));
 
 });
