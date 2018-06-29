@@ -8,12 +8,10 @@ import {
 import path from 'path'
 import MainRoutes from './routes/main-routes'
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
-import ErrorRoutes from './routes/error-routes'
 import ParseUserInfo from './middleware/ParseUserInfo'
 import RequestLog from './middleware/RequestLog'
 import jwt from 'koa-jwt'
 import fs from 'fs'
-// import PluginLoader from './lib/PluginLoader'
 
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
@@ -30,21 +28,6 @@ if (env === 'development') { // logger
     })
   })
 }
-// .use((ctx, next) => {
-//   if (ctx.request.header.host.split(':')[0] === 'localhost' || ctx.request.header.host.split(':')[0] === '127.0.0.1') {
-//     ctx.set('Access-Control-Allow-Origin', '*')
-//   } else {
-//     ctx.set('Access-Control-Allow-Origin', SystemConfig.HTTP_server_host)
-//   }
-//   ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-//   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
-//   //ctx.set('Access-Control-Allow-Credentials', true) // 允许带上 cookie
-//   if (ctx.method === 'OPTIONS') {
-//     ctx.status = 204
-//   } else {
-//     return next()
-//   }
-// })
 app.use(ErrorRoutesCatch())
   .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
   .use(jwt({ secret: publicKey }).unless({ path: [/^\/public|\/auth\/login|\/assets/] }))
@@ -61,11 +44,9 @@ app.use(KoaBody({
   jsonLimit: '10mb',
   formLimit: '10mb',
   textLimit: '10mb'
-})) // Processing request
-  // .use(PluginLoader(SystemConfig.System_plugin_path))
+}))
   .use(MainRoutes.routes())
   .use(MainRoutes.allowedMethods())
-//.use(ErrorRoutes())
 
 app.listen(SystemConfig.API_server_port)
 

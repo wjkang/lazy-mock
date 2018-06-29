@@ -111,24 +111,6 @@ const ServerProjectRootPath = CodeGenerateConfig.config.ServerRootPath;
 const Model=CodeGenerateConfig.model;
 
 gulp.task('code', function () {
-  gulp.src('codeGenerate/templates/schema/*.njk')
-    .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.SchemaRelativePath + CodeGenerateConfig.model.name));
-
-  gulp.src('codeGenerate/templates/page.njk')
-    .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(rename('index.jsx'))
-    .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.PageRelativePath));
-
-  gulp.src('codeGenerate/templates/api.njk')
-    .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.ApiRelativePath));
-
-  gulp.src('codeGenerate/templates/editModal.njk')
-    .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(rename('edit' + CodeGenerateConfig.model.Name + 'Modal.jsx'))
-    .pipe(gulp.dest(ProjectRootPath + CodeGenerateConfig.config.PageRelativePath));
-
   //server
   gulp.src('codeGenerate/serverTemplates/route.njk')
     .pipe(nunjucksRender(nunjucksRenderConfig))

@@ -1,7 +1,7 @@
 {
-  "name": "fty.koa2",
+  "name": "lazy-mock",
   "version": "1.0.0",
-  "description": "fty.koa2",
+  "description": "lazy-mock",
   "author": "若邪",
   "scripts": {
     "start": "gulp nodemon",
@@ -22,10 +22,7 @@
     "lodash": "^4.17.5",
     "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
-    "nodemailer": "^4.3.0",
-    "promise-mysql": "^3.1.1",
-    "require-directory": "^2.1.1",
-    "sequelize": "^4.16.1"
+    "require-directory": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -47,7 +44,6 @@
     "gulp-nodemon": "^2.2.1",
     "gulp-nunjucks-render": "^2.2.2",
     "gulp-rename": "^1.3.0",
-    "koa-logger": "^3.1.0",
     "nunjucks": "^3.1.3"
   },
   "engines": {
