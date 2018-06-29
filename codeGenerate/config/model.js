@@ -8,7 +8,7 @@ export default {
         },
         {
             key:"name",
-            title:"角色名称"
+            title:"书名"
         }
     ]
 }

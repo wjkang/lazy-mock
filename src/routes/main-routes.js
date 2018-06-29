@@ -6,7 +6,7 @@ const router = new KoaRouter()
 
 router
   .get('/public/get', function (ctx, next) {
-    ctx.body = '禁止访问！'
+    ctx.body = '允许访问！'
   }) // 以/public开头则不用经过权限认证
   .post('/auth/login', controllers.auth.login)
   .post('/auth/logout', controllers.auth.logout)
