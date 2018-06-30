@@ -95,7 +95,11 @@ export default {
 ```
 更多生成模拟数据的规则可看[https://github.com/nuysoft/Mock](https://github.com/nuysoft/Mock)
 
+### 生成代码
+
  确保之前``npm run start``的窗口还开着，打开新的命令行窗口，执行``npm run code``
+
+ ![image](https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/3.jpg)
 
  复制src/routes/bookApiMap.txt某一行数据到Postman访问
 
@@ -117,10 +121,15 @@ post http://localhost:3000/book/save
   
 }
  ```
+![image](https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/4.jpg)
 
- 请求头记得加上Authorization:Bearer 之前模拟登录获取的token
+ 请求头记得加上Authorization:Bearer token
 
- 
+ token之前模拟登录获取的
+
+ ![image](https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/5.jpg)
+
+
 
 
 
