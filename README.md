@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/wjkang/lazy-mock">
-        <img width="200" src="https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/6.jpg">
+        <img width="200" src="https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/1.jpg">
     </a>
 </p>
 
