@@ -26,7 +26,7 @@ export default {
     ],
     buildMockData: function () {//不需要生成设为false
         let data = []
-        for (let i = 0; i < 100; 9++) {
+        for (let i = 0; i < 100; i++) {
             data.push({
                 id: shortid.generate(),
                 name: Random.cword(5, 7),
