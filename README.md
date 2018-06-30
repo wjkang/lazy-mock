@@ -7,7 +7,7 @@
 ## lazy-mock
 &emsp;&emsp;[lazy-mock](https://github.com/wjkang/lazy-mock) 是基于[koa2](https://github.com/koajs/koa)构建的，使用[lowdb](https://github.com/typicode/lowdb)持久化数据到JSON文件。只需要简单的配置就可以实现和[json-server](https://github.com/typicode/json-server)差不多的功能，但是比json-server更加灵活，后期可配置性更强，完全可以模拟真实后端业务逻辑。
 
-&emsp;&emsp;lazy-mock默认包含了jwt实现的登录与登出，实现了基于RBAC模型的完整权限控制逻辑。具体可查看[vue-quasar-admin](https://github.com/wjkang/vue-quasar-admin)。
+&emsp;&emsp;lazy-mock默认包含了jwt实现的登录与登出，实现了基于RBAC模型的通用权限控制逻辑。具体可查看[vue-quasar-admin](https://github.com/wjkang/vue-quasar-admin)。
 
 ## Clone
 ```bush
@@ -159,6 +159,22 @@ post http://localhost:3000/book/save
 ### 添加更多业务逻辑
 
 主要修改src/services下文件，具体可参考[memuService.js](https://github.com/wjkang/lazy-mock/blob/master/src/services/memuService.js)
+
+### 使用权限控制逻辑
+
+
+前端参考[vue-quasar-admin](https://github.com/wjkang/vue-quasar-admin)。实现了页面(菜单)，接口，元素级的权限控制。
+
+后端在路由处加上权限控制的中间件，比如
+```js
+.get('/function/pagedlist', PermissionCheck({ permission: ["function_view"], role: ["test"] }), controllers.function.getFunctionPagedList)
+```
+
+permission表明当前登录用户必须具备数组里的任意一个权限码，才能访问当前接口。
+
+role表明当前登录用户必须具备数组里的任意一个角色码，才能访问当前接口
+
+permission与role为或关系
 
 
 
