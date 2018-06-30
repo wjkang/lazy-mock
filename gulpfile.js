@@ -134,7 +134,7 @@ gulp.task('code', function () {
 
   return gulp.src('codeGenerate/serverTemplates/route.njk')
     .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(rename('new-routes.txt'))
+    .pipe(rename(Model.name+'Route.js'))
     .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.RouteRelativePath));
 
 });

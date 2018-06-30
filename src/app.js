@@ -6,7 +6,7 @@ import {
   System as SystemConfig
 } from './config'
 import path from 'path'
-import MainRoutes from './routes/main-routes'
+import Routes from './routes/index'
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
 import ParseUserInfo from './middleware/ParseUserInfo'
 import RequestLog from './middleware/RequestLog'
@@ -45,8 +45,11 @@ app.use(KoaBody({
   formLimit: '10mb',
   textLimit: '10mb'
 }))
-  .use(MainRoutes.routes())
-  .use(MainRoutes.allowedMethods())
+
+Object.keys(Routes).forEach(function (key) {
+  app.use(Routes[key].routes())
+    .use(Routes[key].allowedMethods())
+});
 
 app.listen(SystemConfig.API_server_port)
 
