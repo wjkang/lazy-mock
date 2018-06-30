@@ -3,6 +3,7 @@ var shortid = require('shortid')
 var Mock = require('mockjs')
 var Random = Mock.Random
 
+//必须包含字段id
 export default {
     name: "book",
     Name: "Book",
