@@ -140,6 +140,24 @@ post http://localhost:3000/book/save
 
  ## More
 
+ ### 修改自动生成的代码格式
+
+直接修改codeGenerate/serverTemplates 下文件
+
+### 去掉接口需要授权访问的限制
+
+去掉scr/app.js 里的``.use(jwt({ secret: publicKey }).unless({ path: [/^\/public|\/auth\/login|\/assets/] }))``
+
+### 修改接口返回格式
+
+修改src/lib/responseTemplate.js
+
+### 添加更多业务逻辑
+
+主要修改src/services下文件，具体可参考memuService.js
+
+
+
 
 
 
