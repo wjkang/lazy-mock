@@ -105,9 +105,18 @@ export default {
 
  ```txt
 get http://localhost:3000/book/get?id=
+ ```
+ ```txt
 get http://localhost:3000/book/paged?pageIndex=&pageSize=&sortBy=&descending=&id=&name=&author=&press=
+ ```
+ ```txt
 delete http://localhost:3000/book/del?id=
+ ```
+ ```txt
 delete http://localhost:3000/book/batchdel?ids=[]
+ ```
+ ```txt
+ //不设置id则新增，否则为更新
 post http://localhost:3000/book/save
 {
 
@@ -128,6 +137,8 @@ post http://localhost:3000/book/save
  token之前模拟登录获取的
 
  ![image](https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/5.jpg)
+
+ ## More
 
 
 
