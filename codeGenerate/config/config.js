@@ -1,4 +1,5 @@
 export default {
+    ApiServer:'http://localhost:3000',
     ServerRootPath:'G:/GitHubProject/lazy-mock',
     //server
     RouteRelativePath:'/src/routes/',

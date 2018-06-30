@@ -132,9 +132,14 @@ gulp.task('code', function () {
     .pipe(rename(Model.name + '_db.json'))
     .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.DBRelativePath));
 
+  gulp.src('codeGenerate/serverTemplates/apiMap.njk')
+    .pipe(nunjucksRender(nunjucksRenderConfig))
+    .pipe(rename(Model.name + 'ApiMap.txt'))
+    .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.RouteRelativePath));
+
   return gulp.src('codeGenerate/serverTemplates/route.njk')
     .pipe(nunjucksRender(nunjucksRenderConfig))
-    .pipe(rename(Model.name+'Route.js'))
+    .pipe(rename(Model.name + 'Route.js'))
     .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.RouteRelativePath));
 
 });
