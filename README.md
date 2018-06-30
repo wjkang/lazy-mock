@@ -25,6 +25,6 @@ npm run start
 
 使用Postman模拟登录功能
 
-![image](https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/2.jpg)
+![image](https://raw.githubusercontent.com/wjkang/lazy/master/screenshot/2.jpg)
 
 
