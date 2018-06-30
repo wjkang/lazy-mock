@@ -152,6 +152,10 @@ post http://localhost:3000/book/save
 
 修改src/lib/responseTemplate.js
 
+### 修改路由
+
+修改src/routes 下文件
+
 ### 添加更多业务逻辑
 
 主要修改src/services下文件，具体可参考[memuService.js](https://github.com/wjkang/lazy-mock/blob/master/src/services/memuService.js)
