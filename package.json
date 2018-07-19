@@ -8,7 +8,8 @@
     "dev": "gulp",
     "build": "babel src -d dist",
     "code": "gulp code",
-    "production": "cross-env NODE_ENV=production node dist/app.js"
+    "production": "cross-env NODE_ENV=production node dist/app.js",
+    "doc":"docsify serve docs"
   },
   "dependencies": {
     "jsonwebtoken": "^8.1.0",
