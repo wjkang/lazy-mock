@@ -94,18 +94,87 @@ request.interceptors.request.use(config => {
 
 ```js
 request({
-    url: '/book/save',
-    method: 'post',
-    data: data
+  url: '/book/save',
+  method: 'post',
+  data: {
+    name: "javascript",
+    author: "xxoo",
+    press: "xxoo出版社",
+  }
 }).then(res => {
-    console.log(res.data)
+  console.log(res.data)
 })
 ```
+!> 新增不用传入id
 
 ### Delete
 
+```js
+request({
+  url: '/book/del',
+  method: 'delete',
+  params: {
+      id:'dsdsd23e23e'
+  }
+})
+```
+
+```js
+request({
+    url: '/book/batchdel',
+    method: 'delete',
+    params: {
+        ids:"['sd23edese343d3','433krker346lkrtr']"
+  })
+```
+!> 注意参数的格式
+
 ### Update
+```js
+request({
+  url: '/book/save',
+  method: 'post',
+  data: {
+    id: "1",
+    name: "javascript",
+    author: "xxoo",
+    press: "xxoo出版社",
+  }
+}).then(res => {
+  console.log(res.data)
+})
+```
+!>更新需要传入id
 
 ### Query
+
+```js
+request({
+    url: '/book/get',
+    method: 'get',
+    params: {
+        id:'dsdsd23e23e'
+  })
+```
+
+```js
+request({
+    url: '/book/paged',
+    method: 'get',
+    params: {
+        pageIndex:1,
+        pageSize:10,
+        sortBy:'name',
+        descending:'true',
+        id:'',
+        name:'',
+        author:'',
+        press:''
+  })
+```
+>所有参数都不是必须
+
+>默认升序，倒序则将`descending`设为`'true'`
+
 
 
