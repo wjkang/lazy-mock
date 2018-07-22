@@ -1,4 +1,4 @@
-# 快速开始
+## 快速开始
 直接`clone`本项目
 ```bash
 git clone https://github.com/wjkang/lazy-mock
