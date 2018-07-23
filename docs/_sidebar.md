@@ -6,3 +6,4 @@
 * 使用权限控制
   
   * [权限模型](permission.md)
+  * [权限接口](permissionapi.md)
