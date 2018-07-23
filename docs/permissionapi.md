@@ -39,7 +39,13 @@ request({
 
 ### 登出
 
-
+#### Request
+```js
+request({
+  url: '/auth/logout',
+  method: 'post'
+})
+```
 
 ## 用户
 
