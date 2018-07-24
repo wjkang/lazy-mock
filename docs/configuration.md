@@ -140,6 +140,52 @@ import functionService from './functionService'
 
 生成代码时会在该文件夹下生成相应的model，比如`bookModel.js`。
 model里就是使用`lowdb`读取相应的db.json文件，提供获取`lowdb`实例的方法
+```js
+import path from 'path'
+
+const low = require('lowdb')
+const lodashId = require('lodash-id')
+const FileAsync = require('lowdb/adapters/FileAsync')
+const dbFile = path.join(__dirname, '../db/book_db.json')
+const adapter = new FileAsync(dbFile)
+let instance = undefined
+module.exports = {
+    init: function (context) {
+        return new Promise((resolve, reject) => {
+            if (instance === undefined) {
+                low(adapter).then(db => {
+                    db._.mixin(lodashId)
+                    instance = db;
+                    resolve(db.get(context))
+                })
+            } else {
+                resolve(instance.get(context))
+            }
+        })
+    },
+    read: () => {
+        return new Promise((resolve, reject) => {
+            if (instance === undefined) {
+                resolve()
+            }
+            else {
+                instance.read().then(() => {
+                    resolve()
+                })
+            }
+        })
+    }
+
+}
+
 ```
-```
+
+* **`src\db`**
+
+生成代码时会在该文件夹下生成相应的`JSON`文件，比如`book_db.json`。
+
+json文件的作用就是持久化数据。
+
+到此，相信你已经知道如何去修改或添加代码来实现你要的功能。
+
 
