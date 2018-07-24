@@ -129,6 +129,17 @@ export let getMenuFunctions = async (ctx) => {
 * **`src\services`**
 
 生成代码时会在该文件夹下生成相应的服务文件，比如`bookService.js`。
-控制器里会引入相应的model，也可引入多个实体的服务
+服务里会引入相应的model，也可以引入其它服务
+```js
+import model from '../models/baseModel'
+import roleService from './roleService'
+import functionService from './functionService'
+```
 
+* **`src\models`**
+
+生成代码时会在该文件夹下生成相应的model，比如`bookModel.js`。
+model里就是使用`lowdb`读取相应的db.json文件，提供获取`lowdb`实例的方法
+```
+```
 
