@@ -198,8 +198,101 @@ request({
 }
 ```
 
-
 ## 角色
+### 新增或更新角色
+#### Request
+```js
+request({
+  url: '/role/save',
+  method: 'post',
+  data: {
+    id: "1",
+    name: "网站管理员",
+    code: "role_website_admin",
+    description: "xxoo"
+  }
+})
+```
+!>不设置id则为新增，否则为更新
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": null
+}
+```
+
+### 删除角色
+#### Request
+```js
+request({
+  url: '/role/del',
+  method: 'delete',
+  params: {
+    id: "1"
+  }
+})
+```
+```js
+request({
+  url: '/role/batchdel',
+  method: 'delete',
+  params: {
+    ids:"['1','2']"
+})
+```
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": null
+}
+```
+
+### 角色列表
+#### Request
+```js
+request({
+  url: '/role/pagedlist',
+  method: 'get',
+  params: {
+    pageIndex: 1,
+    pageSize: 10,
+    sortBy: 'name',
+    descending: true,
+    filter: {
+      name: '',
+      code: '',
+    }
+  }
+})
+```
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": {
+    "totalCount": 2,
+    "rows": [
+      {
+        "name": "测试",
+        "code": "role_test",
+        "description": "具备全部数据查看权限，没有相关系统设置的操作权限",
+        "id": "40af8f42-3b18-410c-9fc2-aba8158e92d7"
+      },
+      {
+        "name": "网站模块管理员",
+        "code": "role_website_admin",
+        "description": "网站模块管理员",
+        "id": "9fc587ff-3543-4f58-93ab-15f64d3d19e5"
+      }
+    ]
+  }
+}
+```
 
 ## 功能
 
