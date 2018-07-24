@@ -295,7 +295,405 @@ request({
 ```
 
 ## 功能
+### 新增或更新功能
+#### Request
+```js
+request({
+  url: '/function/save',
+  method: 'post',
+  data: {
+    id: "2817154d-2df0-4875-ac26-5c3dd27061ad",
+    name: "2-文章编辑",
+    code: "post_edit",
+    description: "文章编辑",
+    moduleId: 3,
+    module: "文章管理"
+  }
+})
+```
+!>不设置id则为新增，否则为更新
+>`moduleId`为菜单id，`module`为菜单名称，方便查询
+
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": null
+}
+```
+
+### 删除功能
+#### Request
+```js
+request({
+  url: '/function/del',
+  method: 'delete',
+  params: {
+    id: "1"
+  }
+})
+```
+```js
+request({
+  url: '/function/batchdel',
+  method: 'delete',
+  params: {
+    ids:"['1','2']"
+})
+```
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": null
+}
+```
+
+### 功能列表
+#### Request
+```js
+request({
+  url: '/function/pagedlist',
+  method: 'get',
+  params: {
+    pageIndex: 1,
+    pageSize: 10,
+    sortBy: 'name',
+    descending: true,
+    filter: {
+      name: '',
+      code: '',
+      module: '文章管理'
+    }
+  }
+})
+```
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": {
+    "totalCount": 3,
+    "rows": [
+      {
+        "name": "1-文章列表",
+        "moduleId": 3,
+        "module": "文章管理",
+        "code": "post_view",
+        "description": "文章列表",
+        "id": "17684882-c610-4007-b357-e783631c059f"
+      },
+      {
+        "name": "2-文章编辑",
+        "code": "post_edit",
+        "description": "文章编辑",
+        "moduleId": 3,
+        "module": "文章管理",
+        "id": "2817154d-2df0-4875-ac26-5c3dd27061ad"
+      },
+      {
+        "name": "3-文章删除",
+        "code": "post_del",
+        "description": "文章删除",
+        "moduleId": 3,
+        "module": "文章管理",
+        "id": "8ab3b7b6-921a-4f8f-9bad-2fd106c870e1"
+      }
+    ]
+  }
+}
+```
 
 ## 角色用户
+### 关联角色用户
+#### Request
+```js
+request({
+  url: '/user/editroleuser',
+  method: 'post',
+  data: {
+    roleId: '',
+    userId: '',
+    action: 1
+  }
+})
+```
+!>`action`为1则添加关联，2则删除关联
+#### Reponse
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": null
+}
+```
 
 ## 角色权限
+
+### 保存角色权限
+#### Request
+```js
+request({
+  url: '/role/savepermission',
+  method: 'post',
+  data: {
+    roleId: '2817154d-2df0-4875-ac26-5c3dd27061ad',
+    permissions: ['40af8f42-3b18-410c-9fc2-aba8158e92d7']
+  }
+})
+```
+>`permissions`为功能id列表，表明当前角色有权限访问这些功能或资源
+
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": null
+}
+```
+
+## 菜单
+### 添加或更新菜单
+#### Request
+```js
+request({
+  url: '/menu/savemenu',
+  method: 'post',
+  data: {
+     id: 3,
+     parentId: 2
+     icon: "settings",
+     title: "文章管理",
+     name: "article",
+     leftMemu: true,
+     functionCode: "article_view",
+     sort: 2,
+     isLock: false
+  }
+})
+```
+!>不设置id则为新增，否则为更新。parentId为0则为顶级菜单
+
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": null
+}
+```
+
+### 菜单列表
+#### Request
+```js
+request({
+  url: '/menu',
+  method: 'get'
+})
+```
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": [
+    {
+      "id": 4,
+      "parentId": 0,
+      "path": "",
+      "icon": "appstore",
+      "title": "系统",
+      "name": "系统",
+      "leftMemu": true,
+      "functionCode": "",
+      "sort": 1,
+      "children": [
+        {
+          "id": 5,
+          "parentId": 4,
+          "path": "/system",
+          "icon": "setting",
+          "title": "系统设置",
+          "name": "系统设置",
+          "leftMemu": true,
+          "functionCode": "",
+          "children": [
+            {
+              "id": 6,
+              "parentId": 5,
+              "path": "menu",
+              "icon": "chrome",
+              "title": "菜单管理",
+              "name": "menu",
+              "leftMemu": true,
+              "functionCode": "menu_view",
+              "children": [
+                
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "parentId": 4,
+          "path": "/permission",
+          "icon": "key",
+          "title": "权限管理",
+          "name": "权限管理",
+          "leftMemu": true,
+          "functionCode": "",
+          "children": [
+            {
+              "id": 8,
+              "parentId": 7,
+              "path": "function",
+              "icon": "solution",
+              "title": "功能管理",
+              "name": "function",
+              "leftMemu": true,
+              "functionCode": "function_view",
+              "children": [
+                
+              ]
+            },
+            {
+              "id": 20,
+              "parentId": 7,
+              "path": "role",
+              "icon": "idcard",
+              "title": "角色管理",
+              "name": "role",
+              "leftMemu": true,
+              "functionCode": "role_view",
+              "children": [
+                
+              ]
+            },
+            {
+              "id": 9,
+              "parentId": 7,
+              "path": "rolepermission",
+              "icon": "calculator",
+              "title": "角色权限管理",
+              "name": "rolepermission",
+              "leftMemu": true,
+              "functionCode": "role_permission_view",
+              "children": [
+                
+              ]
+            },
+            {
+              "id": 10,
+              "parentId": 7,
+              "path": "roleuser",
+              "icon": "android",
+              "title": "角色用户管理",
+              "name": "roleuser",
+              "leftMemu": true,
+              "functionCode": "role_user_view",
+              "children": [
+                
+              ]
+            },
+            {
+              "id": 11,
+              "parentId": 7,
+              "path": "userrole",
+              "icon": "dropbox",
+              "title": "用户角色管理",
+              "name": "userrole",
+              "leftMemu": true,
+              "functionCode": "user_role_view",
+              "children": [
+                
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 获取授权菜单
+#### Request
+```js
+request({
+  url: '/menu/getaccessmenu',
+  method: 'get'
+})
+```
+#### Response
+>如[菜单列表](#菜单列表)接口返回格式
+
+### 菜单功能权限
+#### Request
+```js
+request({
+  url: '/menu/menufunctions',
+  method: 'get',
+  params: {
+    menuId:0,
+    roleId:'1'
+  }
+})
+```
+#### Response
+```js
+{
+  "statusCode": 200,
+  "msg": "",
+  "data": {
+    "menuFunctions": [
+      {
+        "id": 6,
+        "parentId": 5,
+        "path": "menu",
+        "icon": "chrome",
+        "title": "菜单管理",
+        "name": "menu",
+        "leftMemu": true,
+        "functionCode": "menu_view",
+        "functions": [
+          {
+            "name": "1-菜单列表",
+            "code": "menu_view",
+            "description": "查看菜单列表",
+            "moduleId": 6,
+            "module": "菜单管理",
+            "id": "6f3ef7c1-53fb-47b6-8800-0adff147c295"
+          },
+          {
+            "name": "2-菜单编辑",
+            "code": "menu_edit",
+            "description": "菜单编辑",
+            "moduleId": 6,
+            "module": "菜单管理",
+            "id": "f8297890-5a35-4704-b901-6b25074beb43"
+          }
+        ]
+      },
+      ...
+    ],
+    "roleFunctions": [
+      {
+        "roleId": "40af8f42-3b18-410c-9fc2-aba8158e92d7",
+        "functionId": "2de3ee27-a382-4bbb-8c8f-fa6f73c99d1d",
+        "moduleId": 20,
+        "id": "6b0365da-54d2-49e6-bb28-e129d1bbce1a"
+      },
+      ...
+    ]
+  }
+}
+```
+>`menuFunctions`为菜单列表，`menuFunctions.functions`菜单下相应的功能或资源
+
+>`roleFunctions`为对应角色具备的权限列表
+
+>此接口用在角色权限编辑
