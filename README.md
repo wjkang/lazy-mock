@@ -1,3 +1,9 @@
+<p align="center">
+    <a href="https://github.com/wjkang/lazy-mock">
+        <img width="250" src="https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/1.jpg">
+    </a>
+</p>
+
 ## 关于lazy mock
 > 一个快速生成后端模拟数据的懒人工具
 
@@ -7,7 +13,6 @@ lazy mock 是一个使用`koa2`构建的，`lowdb`持久化数据到JSON文件�
 
 lazy mock默认包含了`jwt`实现的登录与登出，实现了基于`RBAC`模型的通用权限控制逻辑。
 
-查看[快速开始](quickstart.md)了解详情。
 
 ## 特性
 - 轻松对接`mock.js`，`faker.js`等假数据生成工具
@@ -17,6 +22,11 @@ lazy mock默认包含了`jwt`实现的登录与登出，实现了基于`RBAC`模
 - 使用 `async/await` 处理异步问题
 - `MVC`代码分层结构
 - 内置简单代码生成器
+
+
+
+[文档](https://wjkang.github.io/lazy-mock)
+
 
 
 
