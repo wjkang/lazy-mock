@@ -12,6 +12,7 @@ import ParseUserInfo from './middleware/ParseUserInfo'
 import RequestLog from './middleware/RequestLog'
 import jwt from 'koa-jwt'
 import fs from 'fs'
+import im from './im';
 
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
@@ -51,8 +52,10 @@ Object.keys(Routes).forEach(function (key) {
     .use(Routes[key].allowedMethods())
 });
 
-app.listen(SystemConfig.API_server_port)
+app.listen(SystemConfig.API_SERVER_PORT)
 
-console.log('Now start API server on port ' + SystemConfig.API_server_port + '...')
+console.log('Now start API server on port ' + SystemConfig.API_SERVER_PORT + '...')
+
+im.start();
 
 export default app
