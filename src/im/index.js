@@ -26,9 +26,13 @@ function onConnection(ws, req) {
         ws.close(1003, "exists clientId");
         return;
     }
+    ws.send(makeMessage({
+        code: 200,
+        msg: 'Wellcome'
+    }))
     ws.clientId = clientId;
     clients.set(clientId, ws);
-    console.log(this.clientId + " Connected");
+    console.log(ws.clientId + " Connected");
 }
 function onMessage() {
     let clientId = this.clientId;
