@@ -13,6 +13,7 @@ import RequestLog from './middleware/RequestLog'
 import jwt from 'koa-jwt'
 import fs from 'fs'
 import im from './im';
+import EasySocket from './lib/EasySocket';
 
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
@@ -56,6 +57,11 @@ app.listen(SystemConfig.API_SERVER_PORT)
 
 console.log('Now start API server on port ' + SystemConfig.API_SERVER_PORT + '...')
 
-im.start();
+const easySocket=new EasySocket();
+easySocket.connectionUse(im.connectMiddleware())
+.closeUse(im.closeMiddleware())
+.listen(SystemConfig.WS_CONFIG)
+
+console.log('Now start WebSocket server on port ' + SystemConfig.WS_CONFIG.port + '...')
 
 export default app
