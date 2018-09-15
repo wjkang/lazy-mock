@@ -26,7 +26,8 @@ export default () => {
         }
         client.send(makeMessage({
             code: 200,
-            msg: 'Wellcome'
+            msg: 'Wellcome',
+            data: null
         }))
         client.clientId = clientId;
         server.clients.set(clientId, client);

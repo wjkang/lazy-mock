@@ -60,6 +60,7 @@ console.log('Now start API server on port ' + SystemConfig.API_SERVER_PORT + '..
 const easySocket=new EasySocket();
 easySocket.connectionUse(im.connectMiddleware())
 .closeUse(im.closeMiddleware())
+.messageUse(im.messageMiddleware())
 .listen(SystemConfig.WS_CONFIG)
 
 console.log('Now start WebSocket server on port ' + SystemConfig.WS_CONFIG.port + '...')
