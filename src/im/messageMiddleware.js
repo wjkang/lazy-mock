@@ -3,7 +3,7 @@ export default () => {
         let message = context.message;
         let client = context.client;
         client.send('received ' + message)
-        console.log(message)
+        console.log(message) 
         next();
     }
 }
