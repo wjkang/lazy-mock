@@ -70,8 +70,18 @@ export default class EasySocket extends EventEmitter {
             });
         })
     }
-    emit(){
-        
+    emit(event, args, isLocal = false) {
+        let arr = [event, args];
+        if (isLocal) {
+            super.emit.apply(this, arr);
+            return this;
+        }
+        let data = JSON.stringify(arr);
+        this.send(data);
+        return this;
+    }
+    send(data) {
+
     }
 
 }
