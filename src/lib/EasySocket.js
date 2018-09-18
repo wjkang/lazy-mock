@@ -9,11 +9,13 @@ export default class EasySocket extends EventEmitter {
         this.closeMiddleware = [];
         this.messageMiddleware = [];
         this.errorMiddleware = [];
+        this.sendMiddleware = [];
 
         this.connectionFn = Promise.resolve();
         this.closeFn = Promise.resolve();
         this.messageFn = Promise.resolve();
         this.errorFn = Promise.resolve();
+        this.sendFn = Promise.resolve();
     }
     connectionUse(fn, runtime) {
         this.connectionMiddleware.push(fn);
@@ -40,6 +42,13 @@ export default class EasySocket extends EventEmitter {
         this.errorMiddleware.push(fn);
         if (runtime) {
             this.errorFn = compose(this.errorMiddleware);
+        }
+        return this;
+    }
+    sendUse(fn, runtime) {
+        this.sendMiddleware.push(fn);
+        if (runtime) {
+            this.sendFn = compose(this.sendMiddleware);
         }
         return this;
     }
@@ -77,11 +86,8 @@ export default class EasySocket extends EventEmitter {
             return this;
         }
         let data = JSON.stringify(arr);
-        this.send(data);
+        let sendContext = { server: this,message };
+        this.sendFn(sendContext).catch(error => { console.log(error) })
         return this;
     }
-    send(data) {
-
-    }
-
 }

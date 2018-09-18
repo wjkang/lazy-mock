@@ -4,6 +4,7 @@ export default () => {
         let client = context.client;
         client.send('received ' + message)
         console.log(message) 
+        
         next();
     }
 }
