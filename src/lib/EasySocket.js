@@ -1,7 +1,9 @@
 import compose from './compose';
 const WebSocket = require('ws');
-export default class EasySocket {
+var EventEmitter = require('events').EventEmitter;
+export default class EasySocket extends EventEmitter {
     constructor() {
+        super();
         this.clients = new Map();
         this.connectionMiddleware = [];
         this.closeMiddleware = [];
