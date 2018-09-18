@@ -70,5 +70,8 @@ export default class EasySocket extends EventEmitter {
             });
         })
     }
+    emit(){
+        
+    }
 
 }
