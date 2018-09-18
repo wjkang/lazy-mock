@@ -7,7 +7,6 @@ export default () => {
         if (code === 1003 && (reason === 'invalid clientId' || reason === 'exists clientId')) {
             console.log("'invalid clientId' or 'exists clientId' closed")
         } else {
-            console.log(server.clients.delete(client.clientId))
             console.log(client.clientId + " closed");
         }
         next();

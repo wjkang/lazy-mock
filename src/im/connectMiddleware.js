@@ -1,6 +1,13 @@
 import url from 'url';
-function makeMessage(obj) {
-    return JSON.stringify(obj);
+function makeMessage(msg) {
+    return JSON.stringify(msg);
+}
+function makeEvent(event) {
+    return JSON.stringify({
+        type: 'event',
+        event: event.event,
+        args: event.args
+    })
 }
 export default () => {
     return function (context, next) {
@@ -10,24 +17,23 @@ export default () => {
         let location = url.parse(req.url, true);
         let clientId = location.query.token || location.query.user;
         if (!clientId) {
-            client.end(makeMessage({
-                code: 500,
-                msg: 'invalid clientId'
+            client.end(makeEvent({
+                event: 'loginError',
+                args: 'invalid clientId'
             }))
             client.close(1003, "invalid clientId");
         }
         if (server.clients.has(clientId)) {
-            client.send(makeMessage({
-                code: 500,
-                msg: 'exists clientId'
+            client.send(makeEvent({
+                event: 'loginError',
+                args: 'exists clientId'
             }))
             client.close(1003, "exists clientId");
             return;
         }
-        client.send(makeMessage({
-            code: 200,
-            msg: 'Wellcome',
-            data: null
+        client.send(makeEvent({
+            event: 'loginSuccess',
+            args: ''
         }))
         client.clientId = clientId;
         server.clients.set(clientId, client);
