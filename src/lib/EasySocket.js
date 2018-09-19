@@ -9,13 +9,13 @@ export default class EasySocket extends EventEmitter {
         this.closeMiddleware = [];
         this.messageMiddleware = [];
         this.errorMiddleware = [];
-        this.sendMiddleware = [];
+        this.remoteEmitMiddleware = [];
 
         this.connectionFn = Promise.resolve();
         this.closeFn = Promise.resolve();
         this.messageFn = Promise.resolve();
         this.errorFn = Promise.resolve();
-        this.sendFn = Promise.resolve();
+        this.remoteEmitFn = Promise.resolve();
     }
     connectionUse(fn, runtime) {
         this.connectionMiddleware.push(fn);
@@ -45,10 +45,10 @@ export default class EasySocket extends EventEmitter {
         }
         return this;
     }
-    sendUse(fn, runtime) {
-        this.sendMiddleware.push(fn);
+    remoteEmitUse(fn, runtime) {
+        this.remoteEmitMiddleware.push(fn);
         if (runtime) {
-            this.sendFn = compose(this.sendMiddleware);
+            this.remoteEmitFn = compose(this.remoteEmitMiddleware);
         }
         return this;
     }
@@ -58,13 +58,20 @@ export default class EasySocket extends EventEmitter {
         this.messageFn = compose(this.messageMiddleware);
         this.closeFn = compose(this.closeMiddleware);
         this.errorFn = compose(this.errorMiddleware);
+        this.remoteEmitFn = compose(this.remoteEmitMiddleware);
 
         this.socket.on('connection', (client, req) => {
             let context = { server: this, client, req };
             this.connectionFn(context).catch(error => { console.log(error) });
 
             client.on('message', (message) => {
-                let messageContext = { server: this, client, message }
+                let req;
+                try {
+                    req = JSON.parse(message);
+                } catch (error) {
+                    req = message;
+                }
+                let messageContext = { server: this, client, req }
                 this.messageFn(messageContext).catch(error => { console.log(error) })
             });
 
@@ -85,9 +92,12 @@ export default class EasySocket extends EventEmitter {
             super.emit.apply(this, arr);
             return this;
         }
-        let data = JSON.stringify(arr);
-        let sendContext = { server: this,message };
-        this.sendFn(sendContext).catch(error => { console.log(error) })
+        let evt = {
+            event: event,
+            args: args
+        }
+        let remoteEmitContext = { server: this, event: evt };
+        this.remoteEmitFn(remoteEmitContext).catch(error => { console.log(error) })
         return this;
     }
 }

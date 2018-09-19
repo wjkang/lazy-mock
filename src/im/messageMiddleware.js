@@ -1,10 +1,8 @@
 export default () => {
     return (context, next) => {
-        let message = context.message;
-        let client = context.client;
-        client.send('received ' + message)
-        console.log(message) 
-        
+        if (context.req.type === 'event') {
+            context.server.emit(context.req.event, context.req.args, true);
+        }
         next();
     }
 }

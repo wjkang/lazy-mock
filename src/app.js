@@ -57,11 +57,17 @@ app.listen(SystemConfig.API_SERVER_PORT)
 
 console.log('Now start API server on port ' + SystemConfig.API_SERVER_PORT + '...')
 
-const easySocket=new EasySocket();
+const easySocket = new EasySocket();
 easySocket.connectionUse(im.connectMiddleware())
-.closeUse(im.closeMiddleware())
-.messageUse(im.messageMiddleware())
-.listen(SystemConfig.WS_CONFIG)
+  .closeUse(im.closeMiddleware())
+  .messageUse(im.messageMiddleware())
+  .remoteEmitUse(im.remoteEmitMiddleware())
+  .listen(SystemConfig.WS_CONFIG)
+
+easySocket.on("chat message", function (data) {
+  //触发执行remoteEmit中间件(如果有)
+  easySocket.emit("chat message", data);
+});
 
 console.log('Now start WebSocket server on port ' + SystemConfig.WS_CONFIG.port + '...')
 
