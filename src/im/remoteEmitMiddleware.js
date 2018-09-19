@@ -5,8 +5,8 @@ export default () => {
         let event = context.event;
         for (let client of server.clients.values()) {
             client.send(makeEventMessage(event));
+            console.log(client.clientId)
         }
-        console.log(event,888888)
         next();
     }
 }
