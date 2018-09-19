@@ -1,4 +1,5 @@
 import url from 'url';
+var shortid = require('shortid');
 function makeMessage(msg) {
     return JSON.stringify(msg);
 }
@@ -19,23 +20,28 @@ export default () => {
         if (!clientId) {
             client.end(makeEvent({
                 event: 'loginError',
-                args: 'invalid clientId'
+                args: 'invalid token or user'
             }))
             client.close(1003, "invalid clientId");
         }
         if (server.clients.has(clientId)) {
             client.send(makeEvent({
                 event: 'loginError',
-                args: 'exists clientId'
+                args: 'user online'
             }))
             client.close(1003, "exists clientId");
             return;
         }
+        let sid = shortid.generate();
         client.send(makeEvent({
             event: 'loginSuccess',
-            args: ''
+            args: {
+                shortid: sid,
+                name: clientId
+            }
         }))
         client.clientId = clientId;
+        client.shortid = sid;
         server.clients.set(clientId, client);
         console.log(client.clientId + " Connected");
         next();
