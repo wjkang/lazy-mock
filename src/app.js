@@ -69,6 +69,10 @@ easySocket.on("chat message", function (data) {
   //触发执行remoteEmit中间件(如果有)
   easySocket.emit("chat message", data);
 });
+easySocket.on("user login", function (data) {
+  //触发执行remoteEmit中间件(如果有)
+  easySocket.emit("user login", data);
+});
 
 console.log('Now start WebSocket server on port ' + SystemConfig.WS_CONFIG.port + '...')
 

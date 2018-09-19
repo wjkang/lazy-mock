@@ -36,10 +36,16 @@ export default () => {
         client.send(makeEvent({
             event: 'loginSuccess',
             args: {
-                shortid: sid,
-                name: clientId
+                user: {
+                    shortid: sid,
+                    name: clientId
+                }
             }
-        }))
+        }));
+        server.emit('user login', {
+            shortid: sid,
+            name: clientId
+        }, true);
         client.clientId = clientId;
         client.shortid = sid;
         server.clients.set(clientId, client);
