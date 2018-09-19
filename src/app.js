@@ -72,4 +72,4 @@ easySocket.on("chat message", function (data) {
 
 console.log('Now start WebSocket server on port ' + SystemConfig.WS_CONFIG.port + '...')
 
-export default app
+export default app 

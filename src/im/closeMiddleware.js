@@ -9,6 +9,7 @@ export default () => {
         } else {
             console.log(client.clientId + " closed");
         }
+        server.clients.delete(client.clientId)
         next();
     }
 }
