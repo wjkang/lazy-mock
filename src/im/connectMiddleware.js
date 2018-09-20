@@ -1,8 +1,6 @@
 import url from 'url';
 var shortid = require('shortid');
-function makeMessage(msg) {
-    return JSON.stringify(msg);
-}
+
 function makeEvent(event) {
     return JSON.stringify({
         type: 'event',
@@ -10,6 +8,7 @@ function makeEvent(event) {
         args: event.args
     })
 }
+
 export default () => {
     return function (context, next) {
         let req = context.req;
@@ -33,22 +32,28 @@ export default () => {
             return;
         }
         let sid = shortid.generate();
-        client.send(makeEvent({
-            event: 'loginSuccess',
-            args: {
-                user: {
-                    shortid: sid,
-                    name: clientId
-                }
-            }
-        }));
-        server.emit('user login', {
-            shortid: sid,
+        let user = {
+            id: sid,
             name: clientId
-        }, true);
+        };
         client.clientId = clientId;
         client.shortid = sid;
         server.clients.set(clientId, client);
+        if (!server.userMap) {
+            server.userMap = new Map();
+        }
+        server.userMap.set(sid, user);
+        server.emit('user login', {
+            id: sid,
+            name: clientId
+        }, true);
+        client.send(makeEvent({
+            event: 'loginSuccess',
+            args: {
+                user: user,
+                userList: [...server.userMap.values()]
+            }
+        }));
         console.log(client.clientId + " Connected");
         next();
     }
