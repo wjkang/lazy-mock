@@ -3,8 +3,22 @@ export default () => {
     return (context, next) => {
         let server = context.server;
         let event = context.event;
-        for (let client of server.clients.values()) {
-            client.send(makeEventMessage(event));
+        let msgType = event.args.type;//broadcast=0,private chat=1,room chat=2, default 0
+        if (msgType > 0) {
+            if (msgType == 1) {
+                let to = event.args.to.user;
+                let from = event.args.from;
+                for (let client of server.clients.values()) {
+                    if (to.name == client.clientId || from.name == client.clientId) {
+                        client.send(makeEventMessage(event));
+                    }
+                }
+            }
+        }
+        else {
+            for (let client of server.clients.values()) {
+                client.send(makeEventMessage(event));
+            }
         }
         next();
     }
