@@ -61,6 +61,7 @@ const easySocket = new EasySocket();
 easySocket
   .connectionUse(im.connectMiddleware())
   .closeUse(im.closeMiddleware())
+  .messageUse(im.addRoomMessageMiddleware())
   .messageUse(im.messageMiddleware())
   .remoteEmitUse(im.remoteEmitMiddleware())
   .listen(SystemConfig.WS_CONFIG)
