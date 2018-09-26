@@ -2,12 +2,12 @@ import connectMiddleware from './connectMiddleware';
 import closeMiddleware from './closeMiddleware';
 import messageMiddleware from './messageMiddleware';
 import remoteEmitMiddleware from './remoteEmitMiddleware';
-import addRoomMessageMiddleware from './addRoomMessageMiddleware';
+import roomInfoMiddleware from './roomInfoMiddleware';
 export default {
     connectMiddleware,
     closeMiddleware,
     messageMiddleware,
     remoteEmitMiddleware,
-    addRoomMessageMiddleware
+    roomInfoMiddleware
 }
 

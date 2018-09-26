@@ -14,6 +14,15 @@ export default () => {
                     }
                 }
             }
+            else if (msgType == 2) {
+                let to = event.args.to.room;
+                let room = server.roomMap.get(to.id);
+                for (let client of server.clients.values()) {
+                    if (room.userList.some((user) => user.name == client.clientId)) {
+                        client.send(makeEventMessage(event));
+                    }
+                }
+            }
         }
         else {
             for (let client of server.clients.values()) {

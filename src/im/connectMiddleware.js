@@ -42,8 +42,8 @@ export default () => {
         if (!server.userMap) {
             server.userMap = new Map();
         }
-        if(!server.roomMap){
-            server.roomMap=new Map();
+        if (!server.roomMap) {
+            server.roomMap = new Map();
         }
         server.userMap.set(sid, user);
         server.emit('user login', {
@@ -54,7 +54,8 @@ export default () => {
             event: 'loginSuccess',
             args: {
                 user: user,
-                userList: [...server.userMap.values()]
+                userList: [...server.userMap.values()],
+                roomList: [...server.roomMap.values()]
             }
         }));
         console.log(client.clientId + " Connected");
