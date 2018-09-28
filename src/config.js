@@ -16,7 +16,7 @@ export let System = {
       // Other options settable:
       clientNoContextTakeover: true, // Defaults to negotiated value.
       serverNoContextTakeover: true, // Defaults to negotiated value.
-      clientMaxWindowBits: 10,       // Defaults to negotiated value.
+      //clientMaxWindowBits: 10,       // Defaults to negotiated value.
       serverMaxWindowBits: 10,       // Defaults to negotiated value.
       // Below options specified as default values.
       concurrencyLimit: 10,          // Limits zlib concurrency for perf.
