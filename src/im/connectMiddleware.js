@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
 import userService from '../services/userService'
+import roomService from '../services/chatRoomService'
 const publicKey = fs.readFileSync(path.join(__dirname, '../../publicKey.pub'))
 
 function makeEvent(event) {
@@ -49,7 +50,7 @@ export default () => {
             return;
         }
         let user = await userService.getUserById(userId);
-        if(!user){
+        if (!user) {
             client.send(makeEvent({
                 event: 'loginError',
                 args: 'invalid token'
@@ -68,6 +69,13 @@ export default () => {
         }
         if (!server.roomMap) {
             server.roomMap = new Map();
+            let roomList = await roomService.getChatRoomPagedList();
+            for (let room of roomList.rows) {
+                server.roomMap.set(room.id, {
+                    ...room,
+                    userList: []
+                })
+            }
         }
         server.userMap.set(userId, user);
         server.emit('user login', {
