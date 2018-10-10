@@ -1,5 +1,9 @@
 import url from 'url';
-var shortid = require('shortid');
+import jwt from 'jsonwebtoken'
+import fs from 'fs'
+import path from 'path'
+import userService from '../services/userService'
+const publicKey = fs.readFileSync(path.join(__dirname, '../../publicKey.pub'))
 
 function makeEvent(event) {
     return JSON.stringify({
@@ -10,45 +14,65 @@ function makeEvent(event) {
 }
 
 export default () => {
-    return function (context, next) {
+    return async function (context, next) {
         let req = context.req;
         let client = context.client;
         let server = context.server;
         let location = url.parse(req.url, true);
-        let clientId = location.query.token || location.query.user;
-        if (!clientId) {
-            client.end(makeEvent({
+        let token = location.query.token;
+        if (!token) {
+            client.send(makeEvent({
                 event: 'loginError',
-                args: 'invalid token or user'
+                args: 'invalid token'
             }))
-            client.close(1003, "invalid clientId");
+            client.close(1003, "invalid token");
+            return;
         }
-        if (server.clients.has(clientId)) {
+        let decoded = null;
+        try {
+            decoded = jwt.verify(token, publicKey);
+        } catch (err) {
+            client.send(makeEvent({
+                event: 'loginError',
+                args: 'invalid token'
+            }))
+            client.close(1003, "invalid token");
+            return;
+        }
+        let userId = decoded.userId;
+        if (server.clients.has(userId)) {
             client.send(makeEvent({
                 event: 'loginError',
                 args: 'user online'
             }))
-            client.close(1003, "exists clientId");
+            client.close(1003, "user online");
             return;
         }
-        let sid = shortid.generate();
+        let user = await userService.getUserById(userId);
+        if(!user){
+            client.send(makeEvent({
+                event: 'loginError',
+                args: 'invalid token'
+            }))
+            client.close(1003, "invalid token");
+            return;
+        }
         let user = {
-            id: sid,
-            name: clientId
+            id: userId,
+            name: user.name
         };
-        client.clientId = clientId;
-        client.shortid = sid;
-        server.clients.set(clientId, client);
+        client.clientId = userId;
+        server.clients.set(userId, client);
         if (!server.userMap) {
             server.userMap = new Map();
         }
         if (!server.roomMap) {
             server.roomMap = new Map();
         }
-        server.userMap.set(sid, user);
+        server.userMap.set(userId, user);
         server.emit('user login', {
-            id: sid,
-            name: clientId
+            id: userId,
+            name: user.name
         }, true);
         client.send(makeEvent({
             event: 'loginSuccess',

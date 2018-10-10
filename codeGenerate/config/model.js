@@ -5,27 +5,48 @@ var Random = Mock.Random
 
 //必须包含字段id
 export default {
-    name: "book",
-    Name: "Book",
+    name: "chatMessage",
+    Name: "ChatMessage",
     properties: [
         {
             key: "id",
             title: "id"
         },
         {
-            key: "name",
-            title: "书名"
+            key: "type",
+            title: "type"
         },
         {
-            key: "author",
-            title: "作者"
+            key: "contentType",
+            title: "contentType"
         },
         {
-            key: "press",
-            title: "出版社"
+            key: "status",
+            title: "status"
+        },
+        {
+            key: "toId",
+            title: "toId"
+        },
+        {
+            key: "fromId",
+            title: "fromId"
+        },
+        {
+            key: "message",
+            title: "message"
+        },
+        {
+            key: "createdBy",
+            title: "createdBy"
+        },
+        {
+            key: "createdDate",
+            title: "createdDate"
         }
     ],
     buildMockData: function () {//不需要生成设为false
+        return [];
         let data = []
         for (let i = 0; i < 100; i++) {
             data.push({
