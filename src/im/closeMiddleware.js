@@ -5,16 +5,17 @@ export default () => {
         let code = context.code;
         let reason = context.message;
         server.clients.delete(client.clientId);
-        if (code === 1003 && (reason === 'invalid clientId' || reason === 'exists clientId')) {
-            console.log("'invalid clientId' or 'exists clientId' closed")
+        if (code === 1003 && (reason === 'invalid token' || reason === 'user online')) {
+            console.log("'invalid token' or 'user online' closed")
         } else {
             console.log(client.clientId + " closed");
             if (server.userMap) {
-                server.userMap.delete(client.shortid);
+                let user = server.userMap.get(client.clientId);
                 server.emit("user logout", {
-                    id: client.shortid,
-                    name: client.clientId
+                    id: user.id,
+                    name: user.name
                 });
+                server.userMap.delete(client.clientId);
             }
         }
         next();

@@ -1,18 +1,25 @@
-var shortid = require('shortid');
+import roomService from '../../services/chatRoomService';
 export default {
-    addRoom: function (context) {
-        if (!context.server.roomMap) {
-            context.server.roomMap = new Map();
+    addRoom: async function (context) {
+        let client = context.client;
+        let result = await roomService.saveChatRoom({
+            ...context.req.args,
+            createdBy: client.clientId
+        });
+        if (!result.success) {
+            context.server.emit("BusinessError", {
+                type: -1,
+                to: client.clientId,
+                msg: result.msg
+            });
+            return;
         }
-        let roomId = shortid.generate();
-        context.req.args.id = roomId;
-        context.server.roomMap.set(roomId, {
-            id: roomId,
-            name: context.req.args.name,
+        context.server.roomMap.set(result.data.id, {
+            id: result.data.id,
+            name: result.data.name,
             userList: []
         });
-        context.server.emit("addRoom", context.req.args);
-        console.log("addRoom")
+        context.server.emit("addRoom", { ...result.data });
     },
     enterRoom: function (context) {
         let room = context.server.roomMap.get(context.req.args.room.id);
@@ -23,7 +30,7 @@ export default {
     leaveRoom: function (context) {
         let room = context.server.roomMap.get(context.req.args.room.id);
         room.userList.splice(room.userList.findIndex((user) => user.id == context.req.args.user.id), 1);
-        context.server.emit("enterRoom", context.req.args);
-        console.log("enterRoom")
+        context.server.emit("leaveRoom", context.req.args);
+        console.log("leaveRoom")
     }
 }

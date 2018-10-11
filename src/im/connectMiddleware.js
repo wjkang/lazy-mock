@@ -31,8 +31,9 @@ export default () => {
         }
         let decoded = null;
         try {
-            decoded = jwt.verify(token, publicKey);
+            decoded = jwt.verify(token, publicKey.toString());
         } catch (err) {
+            console.log(err)
             client.send(makeEvent({
                 event: 'loginError',
                 args: 'invalid token'
@@ -58,7 +59,7 @@ export default () => {
             client.close(1003, "invalid token");
             return;
         }
-        let user = {
+        user = {
             id: userId,
             name: user.name
         };

@@ -84,6 +84,21 @@ module.exports = {
             msg: ""
         }
     },
+    addUser: async (user) => {
+        let db = await model.init(context)
+        let exist = db.find({ name: user.name }).value()
+        if (exist) {
+            return {
+                success: false,
+                msg: "账号名称已经存在"
+            }
+        }
+        await db.insert(user).write()
+        return {
+            success: true,
+            user: db.find({ name: user.name }).value()
+        }
+    },
     saveUser: async (user) => {
         let db = await model.init(context)
         let exist = db.find({ name: user.name }).value()

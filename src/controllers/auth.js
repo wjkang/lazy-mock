@@ -16,7 +16,14 @@ export let login = async (ctx) => {
   }
   let user = await userService.getUserByNameAndPwd(name, pwd)
   if (!user) {
-    return responseTemplate.businessError(ctx, '账号或密码错误!')
+    let result = await userService.addUser({
+      name: name,
+      password: pwd
+    });
+    if (!result.success) {
+      return responseTemplate.businessError(ctx, "账号或密码错误")
+    }
+    user = result.user;
   }
   let token = jwt.sign({
     userId: user.id // 你要保存到token的数据

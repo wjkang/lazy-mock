@@ -12,19 +12,19 @@ module.exports = {
         let chatRoomList = db.value()
         let resultList = chatRoomList
 
-        if (filter.id) {
+        if (filter && filter.id) {
             resultList = _.filter(resultList, (o) => {
                 return o.id.indexOf(filter.id) > -1
             });
         }
 
-        if (filter.name) {
+        if (filter && filter.name) {
             resultList = _.filter(resultList, (o) => {
                 return o.name.indexOf(filter.name) > -1
             });
         }
 
-        if (filter.createdBy) {
+        if (filter && filter.createdBy) {
             resultList = _.filter(resultList, (o) => {
                 return o.createdBy.indexOf(filter.createdBy) > -1
             });
@@ -58,6 +58,13 @@ module.exports = {
     },
     saveChatRoom: async (chatRoom) => {
         let db = await model.init(context)
+        let exist = db.find({ name: chatRoom.name }).value()
+        if (exist && exist.id != chatRoom.id) {
+            return {
+                success: false,
+                msg: "名称已经存在"
+            }
+        }
         if (chatRoom.id) {
             await db.find({ id: chatRoom.id })
                 .assign(chatRoom)
@@ -67,7 +74,7 @@ module.exports = {
         }
         return {
             success: true,
-            msg: ""
+            data: db.find({ name: chatRoom.name }).value()
         }
     }
 }
