@@ -23,7 +23,7 @@ export default () => {
         let token = location.query.token;
         if (!token) {
             client.send(makeEvent({
-                event: 'loginError',
+                event: 'connectError',
                 args: 'invalid token'
             }))
             client.close(1003, "invalid token");
@@ -35,7 +35,7 @@ export default () => {
         } catch (err) {
             console.log(err)
             client.send(makeEvent({
-                event: 'loginError',
+                event: 'connectError',
                 args: 'invalid token'
             }))
             client.close(1003, "invalid token");
@@ -44,7 +44,7 @@ export default () => {
         let userId = decoded.userId;
         if (server.clients.has(userId)) {
             client.send(makeEvent({
-                event: 'loginError',
+                event: 'connectError',
                 args: 'user online'
             }))
             client.close(1003, "user online");
@@ -53,7 +53,7 @@ export default () => {
         let user = await userService.getUserById(userId);
         if (!user) {
             client.send(makeEvent({
-                event: 'loginError',
+                event: 'connectError',
                 args: 'invalid token'
             }))
             client.close(1003, "invalid token");
@@ -79,12 +79,12 @@ export default () => {
             }
         }
         server.userMap.set(userId, user);
-        server.emit('user login', {
+        server.emit('userConnect', {
             id: userId,
             name: user.name
-        }, true);
+        });
         client.send(makeEvent({
-            event: 'loginSuccess',
+            event: 'connectSuccess',
             args: {
                 user: user,
                 userList: [...server.userMap.values()],

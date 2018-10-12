@@ -11,7 +11,7 @@ export default () => {
             console.log(client.clientId + " closed");
             if (server.userMap) {
                 let user = server.userMap.get(client.clientId);
-                server.emit("user logout", {
+                server.emit("userDisconnect", {
                     id: user.id,
                     name: user.name
                 });
