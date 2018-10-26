@@ -17,6 +17,24 @@ export default () => {
                 });
                 server.userMap.delete(client.clientId);
             }
+            //remove from room
+            if (server.roomMap) {
+                let rooms = server.roomMap.values();
+                for (let value of rooms) {
+                    let userIndex = value.userList.findIndex((user) => user.id == client.clientId);
+                    if (userIndex >= 0) {
+                        value.userList.splice(userIndex, 1);
+                        server.emit("leaveRoom", {
+                            user: {
+                                id: client.client
+                            },
+                            room: {
+                                id: value.room.id
+                            }
+                        });
+                    }
+                }
+            }
         }
         next();
     }
