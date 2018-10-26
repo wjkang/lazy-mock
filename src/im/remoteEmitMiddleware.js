@@ -9,7 +9,7 @@ export default () => {
                 let to = event.args.to.user;
                 let from = event.args.from;
                 for (let client of server.clients.values()) {
-                    if (to.id == client.clientId || from.id == client.clientId) {
+                    if (client.readyState == 1 && (to.id == client.clientId || from.id == client.clientId)) {
                         client.send(makeEventMessage(event));
                     }
                 }
@@ -18,7 +18,7 @@ export default () => {
                 let to = event.args.to.room;
                 let room = server.roomMap.get(to.id);
                 for (let client of server.clients.values()) {
-                    if (room.userList.some((user) => user.id == client.clientId)) {
+                    if (room.userList.some((user) => user.id == client.clientId && client.readyState == 1)) {
                         client.send(makeEventMessage(event));
                     }
                 }
@@ -26,13 +26,13 @@ export default () => {
         } else if (msgType === -1) {
             let to = event.args.to;
             for (let client of server.clients.values()) {
-                if (to == client.clientId) {
+                if (to == client.clientId && client.readyState == 1) {
                     client.send(makeEventMessage(event));
                 }
             }
         } else {
             for (let client of server.clients.values()) {
-                client.send(makeEventMessage(event));
+                client.readyState == 1 && client.send(makeEventMessage(event));
             }
         }
         next();

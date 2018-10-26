@@ -14,26 +14,28 @@ export let getChatMessagePagedList = async (ctx, next) => {
     let pageSize = ctx.query.pageSize
     let sortBy = ctx.query.sortBy
     let descending = ctx.query.descending
-    let filter ={
-        
-          id:ctx.query.id,
-        
-          type:ctx.query.type,
-        
-          contentType:ctx.query.contentType,
-        
-          status:ctx.query.status,
-        
-          toId:ctx.query.toId,
-        
-          fromId:ctx.query.fromId,
-        
-          message:ctx.query.message,
-        
-          createdBy:ctx.query.createdBy,
-        
-          createdDate:ctx.query.createdDate,
-        
+    let filter = {
+
+        id: ctx.query.id,
+
+        type: ctx.query.type,
+
+        contentType: ctx.query.contentType,
+
+        status: ctx.query.status,
+
+        toId: ctx.query.toId,
+
+        fromId: ctx.query.fromId,
+
+        message: ctx.query.message,
+
+        createdBy: ctx.query.createdBy,
+
+        createdDate: ctx.query.createdDate,
+
+        maxCreatedDate: ctx.query.maxCreatedDate
+
     }
     let pagedList = await chatMessageService.getChatMessagePagedList(pageIndex, pageSize, sortBy, descending, filter)
     responseTemplate.success(ctx, pagedList)
@@ -55,57 +57,57 @@ export let delChatMessages = async (ctx) => {
 
 export let saveChatMessage = async (ctx) => {
     let entity = ctx.request.body
-    
-      
-    
-      
-        if(entity.type==""){
-          return responseTemplate.businessError(ctx, "type不能为空!")
-        }
-      
-    
-      
-        if(entity.contentType==""){
-          return responseTemplate.businessError(ctx, "contentType不能为空!")
-        }
-      
-    
-      
-        if(entity.status==""){
-          return responseTemplate.businessError(ctx, "status不能为空!")
-        }
-      
-    
-      
-        if(entity.toId==""){
-          return responseTemplate.businessError(ctx, "toId不能为空!")
-        }
-      
-    
-      
-        if(entity.fromId==""){
-          return responseTemplate.businessError(ctx, "fromId不能为空!")
-        }
-      
-    
-      
-        if(entity.message==""){
-          return responseTemplate.businessError(ctx, "message不能为空!")
-        }
-      
-    
-      
-        if(entity.createdBy==""){
-          return responseTemplate.businessError(ctx, "createdBy不能为空!")
-        }
-      
-    
-      
-        if(entity.createdDate==""){
-          return responseTemplate.businessError(ctx, "createdDate不能为空!")
-        }
-      
-    
+
+
+
+
+    if (entity.type == "") {
+        return responseTemplate.businessError(ctx, "type不能为空!")
+    }
+
+
+
+    if (entity.contentType == "") {
+        return responseTemplate.businessError(ctx, "contentType不能为空!")
+    }
+
+
+
+    if (entity.status == "") {
+        return responseTemplate.businessError(ctx, "status不能为空!")
+    }
+
+
+
+    if (entity.toId == "") {
+        return responseTemplate.businessError(ctx, "toId不能为空!")
+    }
+
+
+
+    if (entity.fromId == "") {
+        return responseTemplate.businessError(ctx, "fromId不能为空!")
+    }
+
+
+
+    if (entity.message == "") {
+        return responseTemplate.businessError(ctx, "message不能为空!")
+    }
+
+
+
+    if (entity.createdBy == "") {
+        return responseTemplate.businessError(ctx, "createdBy不能为空!")
+    }
+
+
+
+    if (entity.createdDate == "") {
+        return responseTemplate.businessError(ctx, "createdDate不能为空!")
+    }
+
+
     let result = await chatMessageService.saveChatMessage(entity)
     if (!result.success) {
         return responseTemplate.businessError(ctx, result.msg)
