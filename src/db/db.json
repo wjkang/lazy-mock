@@ -20,46 +20,6 @@
       "trueName": "网站模块管理员A",
       "password": "123456",
       "id": "92e6b921-d820-4ea6-9b57-95b1378c961e"
-    },
-    {
-      "name": "admin1",
-      "password": "123789",
-      "id": "fa9f1d7d-581a-4848-9450-c7ffb895bcb9"
-    },
-    {
-      "name": "fff",
-      "password": "123",
-      "id": "52291518-7c60-44fb-aa8b-08a2c379fb10"
-    },
-    {
-      "name": "444",
-      "password": "4444",
-      "id": "16e633bf-7a65-4219-b102-96f5d4c75923"
-    },
-    {
-      "name": "1212",
-      "password": "121212",
-      "id": "b2015ede-129d-4ab6-8aca-05adddd8f7a6"
-    },
-    {
-      "name": "gggg",
-      "password": "gggg",
-      "id": "874003c2-d6b6-4e04-848d-a06d854fcf41"
-    },
-    {
-      "name": "ffff",
-      "password": "fffffff",
-      "id": "18e1b0cb-2faa-436a-889f-dbc902d593f9"
-    },
-    {
-      "name": "1",
-      "password": "1",
-      "id": "96477bac-07c1-49dc-bcc9-537d0641c90e"
-    },
-    {
-      "name": "12",
-      "password": "12",
-      "id": "b8c30ddc-ba75-447a-8634-13bd2e021781"
     }
   ],
   "admin": [
