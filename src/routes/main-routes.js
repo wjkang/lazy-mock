@@ -25,11 +25,6 @@ router
   .del('/route/batchdel', PermissionCheck(), controllers.route.delRoutes)
   .post('/route/save', PermissionCheck(), controllers.route.saveRoute)
 
-  .get('/function/pagedlist', PermissionCheck(), controllers.function.getFunctionPagedList)
-  .del('/function/del', PermissionCheck(), controllers.function.delFuntion)
-  .del('/function/batchdel', PermissionCheck(), controllers.function.delFuntions)
-  .post('/function/save', PermissionCheck(), controllers.function.saveFuntion)
-
   .get('/role/pagedlist', PermissionCheck(), controllers.role.getRolePagedList)
   .get('/role/:id', PermissionCheck(), controllers.role.getRole)
   .get('/role/getpermissions/:roleId', PermissionCheck(), controllers.role.getRolePermissions)
