@@ -15,9 +15,9 @@ export let get<$ model.Name $>PagedList = async (ctx, next) => {
     let sortBy = ctx.query.sortBy
     let descending = ctx.query.descending
     let filter = {
-    <% for property in model.properties %>
-        <$ property.key $>: ctx.query.<$ property.key $>,
-    <% endfor %>
+        <% for property in model.properties -%>
+            <$ property.key $>: ctx.query.<$ property.key -$>,
+        <% endfor %>
     }
     let pagedList = await <$ model.name $>Service.get<$ model.Name $>PagedList(pageIndex, pageSize, sortBy, descending, filter)
     responseTemplate.success(ctx, pagedList)
@@ -39,13 +39,13 @@ export let del<$ model.Name $>s = async (ctx) => {
 
 export let save<$ model.Name $> = async (ctx) => {
     let entity = ctx.request.body
-<% for property in model.properties %>
-    <% if property.key!='id' %>
+<% for property in model.properties -%>
+    <% if property.key!='id' -%>
     if (entity.<$ property.key $> == "") {
         return responseTemplate.businessError(ctx, "<$ property.title $>不能为空!")
     }
-    <% endif %>
-<% endfor %>
+    <% endif -%>
+<% endfor -%>
     let result = await <$ model.name $>Service.save<$ model.Name $>(entity)
     if (!result.success) {
         return responseTemplate.businessError(ctx, result.msg)
