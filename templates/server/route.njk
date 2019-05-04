@@ -1,0 +1,13 @@
+import KoaRouter from 'koa-router'
+import controllers from '../controllers/index.js'
+import PermissionCheck from '../middleware/PermissionCheck'
+
+const router = new KoaRouter()
+router
+    .get('/<$ model.name $>/get', controllers.<$ model.name $>.get<$ model.Name $>)
+    .get('/<$ model.name $>/paged', controllers.<$model.name $>.get<$ model.Name $>PagedList)
+    .del('/<$ model.name $>/del', controllers.<$ model.name $>.del<$ model.Name $>)
+    .del('/<$ model.name $>/batchdel', controllers.<$ model.name $>.del<$ model.Name $>s)
+    .post('/<$ model.name $>/save', controllers.<$ model.name $>.save<$ model.Name $>)
+
+module.exports = router

@@ -1,0 +1,61 @@
+import model from '../models/<$ model.name $>Model'
+import _ from 'lodash'
+const context = '<$ model.name $>'
+module.exports = {
+    get<$ model.Name $>: async (id) => {
+        let db = await model.init(context)
+        let <$ model.name $> = db.find({ id: id }).value()
+        return <$ model.name $>
+    },
+    get<$ model.Name $>PagedList: async (pageIndex, pageSize, sortBy, descending, filter) => {
+        let db = await model.init(context)
+        let <$ model.name $>List = db.value()
+        let resultList = <$ model.name $>List
+        <% for property in model.properties %>
+            if (filter.<$ property.key $>) {
+                resultList = _.filter(resultList, (o) => {
+                    return o.<$ property.key $>.indexOf(filter.<$ property.key $>) > -1
+                });
+            }
+        <% endfor %>
+        let totalCount = resultList.length
+        if (sortBy) {
+            resultList = _.sortBy(resultList, [sortBy])
+            if (descending === 'true') {
+                resultList = resultList.reverse()
+            }
+        }
+        if(!pageIndex||pageIndex<=0){
+            pageIndex=1
+        }
+        if(pageSize){
+            let start = (pageIndex - 1) * pageSize
+            let end = pageIndex * pageSize
+            resultList = _.slice(resultList, start, end)
+        }
+
+        return {
+            totalCount: totalCount,
+            rows: resultList
+        }
+
+    },
+    del<$ model.Name $>: async (id) => {
+        let db = await model.init(context)
+        await db.remove({ id: id }).write()
+    },
+    save<$ model.Name $>: async (<$ model.name $>) => {
+        let db = await model.init(context)
+        if (<$ model.name $>.id) {
+            await db.find({ id: <$ model.name $>.id })
+                .assign(<$ model.name $>)
+                .write()
+        } else {
+            await db.insert(<$ model.name $>).write()
+        }
+        return {
+            success: true,
+            msg: ""
+        }
+    }
+}
