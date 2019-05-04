@@ -12,8 +12,6 @@ router
   .post('/auth/logout', controllers.auth.logout)
 
   .get('/menu', PermissionCheck(), controllers.menu.getMenuList)
-  .get('/menu/access', PermissionCheck(), controllers.menu.getAccessMenuList)
-  .get('/menu/menufunctions', PermissionCheck(), controllers.menu.getMenuFunctions)
   .get('/menu/:id', PermissionCheck(), controllers.menu.getMenu)
   .post('/menu/save', PermissionCheck(), controllers.menu.saveMenu)
   .del('/menu/:id', PermissionCheck(), controllers.menu.delMenu)

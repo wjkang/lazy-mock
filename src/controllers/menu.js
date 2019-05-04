@@ -15,12 +15,6 @@ export let getMenu = async (ctx) => {
     }
     return responseTemplate.success(ctx, menu)
 }
-
-export let getAccessMenuList = async (ctx) => {
-    let menuList = await menuService.getAccessMenuList(ctx.user.userId)
-    return responseTemplate.success(ctx, menuList)
-}
-
 export let saveMenu = async (ctx) => {
     let menu = ctx.request.body;
     if (menu.title == "") {
@@ -37,17 +31,6 @@ export let saveMenu = async (ctx) => {
         return responseTemplate.businessError(ctx, result.msg)
     }
     return responseTemplate.success(ctx, null)
-}
-
-export let getMenuFunctions = async (ctx) => {
-    let menuId = ctx.query.menuId
-    let roleId = ctx.query.roleId
-    let [menuFunctions, roleFunctions] =
-        await Promise.all([menuService.getMenuFunctions(menuId), roleService.getRoleFunctions(roleId)])
-    return responseTemplate.success(ctx, {
-        menuFunctions: menuFunctions,
-        roleFunctions: roleFunctions
-    })
 }
 export let delMenu = async (ctx) => {
     let id = ctx.params.id

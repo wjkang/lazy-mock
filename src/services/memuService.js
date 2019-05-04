@@ -91,41 +91,6 @@ let menuService = {
             msg: ""
         }
     },
-    getMenuWithChildren: async (menuId) => {
-        let db = await model.init(context)
-        let menuList = JSON.parse(JSON.stringify(db.value()))
-        let menuWithChildren = []
-        let menu = menuList.filter(s => {
-            return s.id == menuId
-        })
-        let forFn = (parentId) => {
-            let children = menuList.filter(s => {
-                return s.parentId == parentId;
-            })
-            if (children.length > 0) {
-                menuWithChildren.push(...children)
-                for (let child of children) {
-                    forFn(child.id)
-                }
-            }
-        }
-        if (menu.length > 0) {
-            menuWithChildren.push(menu[0])
-            forFn(menu[0].id)
-        }
-        return menuWithChildren
-    },
-    getMenuFunctions: async (menuId) => {
-        let menuList = await menuService.getMenuWithChildren(menuId)
-        let functionList = await functionService.getFunctionList()
-        functionList = _.sortBy(functionList, ["name"])
-        for (let menu of menuList) {
-            menu.functions = functionList.filter(s => {
-                return s.moduleId == menu.id
-            })
-        }
-        return menuList;
-    },
     delMenu: async (menuId) => {
         let db = await model.init(context)
         let child = db.find({ parentId: menuId }).value()
@@ -140,14 +105,6 @@ let menuService = {
             success: true,
             msg: ""
         }
-    },
-    getMenuListByIds: async (ids) => {
-        let db = await model.init(context)
-        let list = db.value()
-        let menuList = list.filter(s => {
-            return ids.indexOf(s.id) > -1
-        })
-        return menuList
     }
 }
 module.exports = menuService
