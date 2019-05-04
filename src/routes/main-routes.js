@@ -49,12 +49,6 @@ router
   .post('/interface/relate', PermissionCheck(), controllers.interface.relateInterface)
 
   .get('/requestlog/pagedlist', controllers.requestlog.getRequestLogPagedList)
-
-  .get('/post/pagedlist', PermissionCheck(), controllers.post.getPostPagedList)
-  .get('/post/top', PermissionCheck(), controllers.post.getTopPost)
-  .get('/post/:id', PermissionCheck(), controllers.post.getPost)
-  .post('/post/save', PermissionCheck(), controllers.post.savePost)
-
   .post('/resetdb', controllers.system.resetDb)
 
 

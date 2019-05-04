@@ -7,7 +7,6 @@ import tokenService from '../services/tokenService'
 
 const publicKey = fs.readFileSync(path.join(__dirname, '../../publicKey.pub'))
 
-
 export let login = async (ctx) => {
   let name = ctx.request.body.username
   let pwd = ctx.request.body.password
@@ -28,7 +27,6 @@ export let login = async (ctx) => {
     accessToken: token
   })
 }
-
 export let logout = async (ctx) => {
   let user = ctx.user;
   if (!user || !user.token) {
