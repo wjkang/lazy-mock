@@ -41,7 +41,7 @@ export let save<$ model.Name $> = async (ctx) => {
     let entity = ctx.request.body
 <% for property in model.properties %>
     <% if property.key!='id' %>
-    if (entity.<$ property.key $>=="") {
+    if (entity.<$ property.key $> == "") {
         return responseTemplate.businessError(ctx, "<$ property.title $>不能为空!")
     }
     <% endif %>
