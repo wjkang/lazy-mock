@@ -54,5 +54,6 @@
     "node": ">= 7.8.0",
     "npm": ">= 4.2.0"
   },
-  "ServerFullPath": "G:/GitHubProject/lazy-mock"
+  "ServerFullPath": "G:/GitHubProject/lazy-mock",
+  "FrontendFullPath": "G:/GitHubProject/d2-admin-pm"
 }
