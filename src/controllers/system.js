@@ -3,7 +3,6 @@ import path from 'path'
 import systemService from '../services/systemService'
 import * as responseTemplate from '../lib/responseTemplate'
 
-
 export let resetDb = async (ctx) => {
     try {
         await fs.copyFileSync(path.join(__dirname, '../db/db_backup.json'), path.join(__dirname, '../db/db.json'));

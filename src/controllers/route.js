@@ -19,27 +19,16 @@ export let getRoutePagedList = async (ctx, next) => {
   let sortBy = ctx.query.sortBy
   let descending = ctx.query.descending
   let filter = {
-
     id: ctx.query.id,
-
     parentId: ctx.query.parentId,
-
     name: ctx.query.name,
-
     path: ctx.query.path,
-
     title: ctx.query.title,
-
     component: ctx.query.component,
-
     componentPath: ctx.query.componentPath,
-
     cache: ctx.query.cache,
-
     isLock: ctx.query.isLock,
-
     sort: ctx.query.sort,
-
   }
   let pagedList = await routeService.getRoutePagedList(pageIndex, pageSize, sortBy, descending, filter)
   responseTemplate.success(ctx, pagedList)

@@ -23,7 +23,7 @@ export let login = async (ctx) => {
   //await tokenService.add(token)
   return responseTemplate.success(ctx, {
     id: user.id,
-    name:user.trueName,
+    name: user.trueName,
     accessToken: token
   })
 }
