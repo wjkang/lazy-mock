@@ -7,6 +7,15 @@ export let getMenuList = async (ctx) => {
     return responseTemplate.success(ctx, menuList)
 }
 
+export let getMenu = async (ctx) => {
+    let id = ctx.params.id
+    let menu = await menuService.getMenu(id)
+    if (!menu) {
+        return responseTemplate.businessError(ctx, "菜单不存在")
+    }
+    return responseTemplate.success(ctx, menu)
+}
+
 export let getAccessMenuList = async (ctx) => {
     let menuList = await menuService.getAccessMenuList(ctx.user.userId)
     return responseTemplate.success(ctx, menuList)
@@ -14,14 +23,14 @@ export let getAccessMenuList = async (ctx) => {
 
 export let saveMenu = async (ctx) => {
     let menu = ctx.request.body;
-    if(menu.name==""){
-        return responseTemplate.businessError(ctx, "名称不能为空!")
-    }
-    if(menu.title==""){
+    if (menu.title == "") {
         return responseTemplate.businessError(ctx, "标题不能为空!")
     }
-    if(menu.icon==""){
-        return responseTemplate.businessError(ctx, "请选择图标!")
+    if (!menu.type) {
+        return responseTemplate.businessError(ctx, "请选择类型!")
+    }
+    if (menu.type == 1 && menu.path == "") {
+        return responseTemplate.businessError(ctx, "路径不能为空!")
     }
     let result = await menuService.saveMenu(menu)
     if (!result.success) {
@@ -39,5 +48,13 @@ export let getMenuFunctions = async (ctx) => {
         menuFunctions: menuFunctions,
         roleFunctions: roleFunctions
     })
+}
+export let delMenu = async (ctx) => {
+    let id = ctx.params.id
+    let result = await menuService.delMenu(id)
+    if (!result.success) {
+        return responseTemplate.businessError(ctx, result.msg)
+    }
+    return responseTemplate.success(ctx, null)
 }
 

@@ -33,7 +33,7 @@ if (env === 'development') { // logger
 }
 app.use(ErrorRoutesCatch())
   .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
-  .use(jwt({ secret: publicKey }).unless({ path: [/^\/public|\/auth\/login|\/assets/] }))
+  .use(jwt({ secret: publicKey }).unless({ path: [/^\/public|\/auth\/login|\/resetdb|\/assets/] }))
   .use(ParseUserInfo())
 if (env === 'production') {
   app.use(RequestLog())

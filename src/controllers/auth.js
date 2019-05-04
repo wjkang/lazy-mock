@@ -23,6 +23,8 @@ export let login = async (ctx) => {
   }, publicKey, { expiresIn: '7d' })
   //await tokenService.add(token)
   return responseTemplate.success(ctx, {
+    id: user.id,
+    name:user.trueName,
     accessToken: token
   })
 }
