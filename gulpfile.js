@@ -86,6 +86,8 @@ gulp.task('default', ['ESlint', 'ESlint_nodemon'], function () {
   // console.log('ESlin检查完成')
 })
 
+const ServerFullPath = require('./package.json').ServerFullPath;
+const FrontendFullPath = require('./package.json').FrontendFullPath;
 const nunjucksRenderConfig = {
   path: 'templates/server',
   envOptions: {
@@ -98,7 +100,9 @@ const nunjucksRenderConfig = {
       commentEnd: '#>'
     },
   },
-  ext: '.js'
+  ext: '.js',
+  ServerFullPath,
+  FrontendFullPath
 }
 gulp.task('code', function () {
   return codeGenerate(gulp, nunjucksRender, rename, nunjucksRenderConfig)

@@ -1,6 +1,4 @@
 const CodeGenerateConfig = require('./config').default;
-
-const ServerProjectRootPath = require('../package.json').ServerFullPath;
 const Model = CodeGenerateConfig.model;
 
 module.exports = function generate(gulp, nunjucksRender, rename, nunjucksRenderConfig) {
@@ -8,8 +6,10 @@ module.exports = function generate(gulp, nunjucksRender, rename, nunjucksRenderC
         model: CodeGenerateConfig.model,
         config: CodeGenerateConfig.config
     }
+    const ServerProjectRootPath = nunjucksRenderConfig.ServerFullPath;
+    const FrontendFullPath = nunjucksRenderConfig.FrontendFullPath;
     //server
-    const serverTemplatePath='templates/server/'
+    const serverTemplatePath = 'templates/server/'
     gulp.src(`${serverTemplatePath}controller.njk`)
         .pipe(nunjucksRender(nunjucksRenderConfig))
         .pipe(rename(Model.name + '.js'))
