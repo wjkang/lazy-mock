@@ -9,6 +9,7 @@ module.exports = function generate(gulp, nunjucksRender, rename, nunjucksRenderC
         config: CodeGenerateConfig.config
     }
     //server
+    const serverTemplatePath='templates/server/'
     gulp.src(`${serverTemplatePath}controller.njk`)
         .pipe(nunjucksRender(nunjucksRenderConfig))
         .pipe(rename(Model.name + '.js'))
