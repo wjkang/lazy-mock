@@ -7,7 +7,7 @@ export let get<$ model.Name $> = async (ctx) => {
     if (!<$ model.name $>) {
         return responseTemplate.businessError(ctx, "<$ model.name $>不存在!")
     }
-    return responseTemplate.success(ctx, <$ model.name $>)
+    return responseTemplate.success(ctx, post)
 }
 export let get<$ model.Name $>PagedList = async (ctx, next) => {
     let pageIndex = ctx.query.pageIndex
