@@ -1,3 +1,4 @@
+const path = require('path')
 const CodeGenerateConfig = require('./config').default;
 const Model = CodeGenerateConfig.model;
 
@@ -30,8 +31,25 @@ module.exports = function generate(gulp, nunjucksRender, rename, nunjucksRenderC
         .pipe(rename(Model.name + '_db.json'))
         .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.DBRelativePath));
 
-    return gulp.src(`${serverTemplatePath}route.njk`)
+    gulp.src(`${serverTemplatePath}route.njk`)
         .pipe(nunjucksRender(nunjucksRenderConfig))
         .pipe(rename(Model.name + 'Route.js'))
         .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.RouteRelativePath));
+
+    //page
+    const pageTemplatePath = 'templates/front-end/'
+    gulp.src(`${pageTemplatePath}api.njk`)
+        .pipe(nunjucksRender(nunjucksRenderConfig))
+        .pipe(rename(Model.name + '.js'))
+        .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.APIRelativePath, Model.module)));
+
+    gulp.src(`${pageTemplatePath}editForm.njk`)
+        .pipe(nunjucksRender(nunjucksRenderConfig))
+        .pipe(rename('editForm.vue'))
+        .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.PagesRelativePath, Model.module, Model.name)));
+
+    return gulp.src(`${pageTemplatePath}index.njk`)
+        .pipe(nunjucksRender(nunjucksRenderConfig))
+        .pipe(rename('index.vue'))
+        .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.PagesRelativePath, Model.module, Model.name)));
 }

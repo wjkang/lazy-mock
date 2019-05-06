@@ -4,5 +4,9 @@ export default {
     ControllerRelativePath:'/src/controllers/',
     ServiceRelativePath:'/src/services/',
     ModelRelativePath:'/src/models/',
-    DBRelativePath:'/src/db/'
+    DBRelativePath:'/src/db/',
+
+    //page
+    APIRelativePath:'/src/api/',
+    PagesRelativePath:'/src/pages/'
 }
