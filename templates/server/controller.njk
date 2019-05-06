@@ -20,8 +20,7 @@ export let get<$ model.Name $>PagedList = async (ctx, next) => {
         <% endfor %>
     }
     let pagedList = await <$ model.name $>Service.get<$ model.Name $>PagedList(pageIndex, pageSize, sortBy, descending, filter)
-    responseTemplate.success(ctx, pagedList)
-    return next()
+    return responseTemplate.success(ctx, pagedList)
 }
 export let del<$ model.Name $> = async (ctx) => {
     let id = ctx.query.id

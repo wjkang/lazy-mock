@@ -103,7 +103,7 @@ export default {
         descending: this.sort.order === "descending",
         ...this.searchForm
       };
-      <$ model.name $>Service.get<$ modelName.key $>PagedList(query).then(data => {
+      <$ model.name $>Service.get<$ modelName.Name $>PagedList(query).then(data => {
         this.tableData = data.rows;
         this.page.total = data.totalCount;
       });
