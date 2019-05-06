@@ -14,6 +14,7 @@ import jwt from 'koa-jwt'
 import fs from 'fs'
 import im from './im';
 import EasySocket from './lib/EasySocket';
+import imRoutes from './im/routes';
 
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
@@ -32,7 +33,7 @@ if (env === 'development') { // logger
 }
 app.use(ErrorRoutesCatch())
   .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
-  .use(jwt({ secret: publicKey }).unless({ path: [/^\/public|\/auth\/login|\/assets/] }))
+  .use(jwt({ secret: publicKey }).unless({ path: [/^\/public|\/auth\/login|\/resetdb|\/assets/] }))
   .use(ParseUserInfo())
 if (env === 'production') {
   app.use(RequestLog())
@@ -57,12 +58,18 @@ app.listen(SystemConfig.API_SERVER_PORT)
 
 console.log('Now start API server on port ' + SystemConfig.API_SERVER_PORT + '...')
 
+
+const imMergeRoutes = {};
+Object.keys(imRoutes).forEach(function (key) {
+  Object.assign(imMergeRoutes, imRoutes[key].default)
+});
 const easySocket = new EasySocket();
 easySocket
   .connectionUse(im.connectMiddleware())
   .closeUse(im.closeMiddleware())
-  .messageUse(im.roomInfoMiddleware())
-  .messageUse(im.messageMiddleware())
+  //.messageUse(im.roomInfoMiddleware())
+  //.messageUse(im.messageMiddleware()) //与messageRouteMiddleware为两种方案
+  .messageUse(im.messageRouteMiddleware(imMergeRoutes))
   .remoteEmitUse(im.remoteEmitMiddleware())
   .listen(SystemConfig.WS_CONFIG)
 

@@ -1,5 +1,4 @@
 import model from '../models/baseModel'
-import functionService from './functionService'
 import userService from './userService'
 import _ from 'lodash'
 const context = 'menu'
@@ -16,7 +15,7 @@ let buildMenu = (parentMenu, menuList) => {
 let buildAccessMenu = (parentMenu, menuList, userPermission) => {
     parentMenu.children = []
     let children = menuList.filter((item) => {
-        return item.parentId == parentMenu.id && (!item.functionCode|| userPermission.indexOf(item.functionCode) > -1)
+        return item.parentId == parentMenu.id && (!item.permission || userPermission.indexOf(item.permission) > -1)
     })
     //父级没有权限访问，子级也不能访问
     for (let menu of children) {
@@ -27,16 +26,24 @@ let buildAccessMenu = (parentMenu, menuList, userPermission) => {
 let checkAccssMenu = (accessMenuList, menuList) => {
     for (let item of accessMenuList) {
         if (item.children) {
-            checkAccssMenu(item.children,menuList)
+            checkAccssMenu(item.children, menuList)
         }
     }
     _.remove(accessMenuList, (item) => {
         return item.children.length == 0 && menuList.some(s => {
-            return s.parentId==item.id
+            return s.parentId == item.id
         })
     });
 }
 let menuService = {
+    getMenu: async (id) => {
+        let db = await model.init(context)
+        let menu = db.find({ id: id }).value()
+        if (!menu) {
+            menu = db.find({ id: parseInt(id) }).value()
+        }
+        return menu
+    },
     getMenuList: async () => {
         let db = await model.init(context)
         let menuList = JSON.parse(JSON.stringify(db.value()))
@@ -51,7 +58,7 @@ let menuService = {
     },
     getAccessMenuList: async (userId) => {
         let db = await model.init(context)
-        let menuList = JSON.parse(JSON.stringify(db.value()))
+        let menuList = JSON.parse(JSON.stringify(db.filter({ type: 1 }).value()))
         menuList = _.sortBy(menuList, ["sort"])
         let parentMenuList = menuList.filter((item) => {
             return item.parentId == 0 && !item.isLock
@@ -72,13 +79,6 @@ let menuService = {
     },
     saveMenu: async (menu) => {
         let db = await model.init(context)
-        let exist = db.find({ name: menu.name }).value()
-        if (exist && exist.id != menu.id) {
-            return {
-                success: false,
-                msg: "名称已经存在"
-            }
-        }
         if (menu.id) {
             await db.find({ id: menu.id })
                 .assign(menu)
@@ -91,40 +91,20 @@ let menuService = {
             msg: ""
         }
     },
-    getMenuWithChildren: async (menuId) => {
+    delMenu: async (menuId) => {
         let db = await model.init(context)
-        let menuList = JSON.parse(JSON.stringify(db.value()))
-        let menuWithChildren = []
-        let menu = menuList.filter(s => {
-            return s.id == menuId
-        })
-        let forFn = (parentId) => {
-            let children = menuList.filter(s => {
-                return s.parentId == parentId;
-            })
-            if (children.length > 0) {
-                menuWithChildren.push(...children)
-                for (let child of children) {
-                    forFn(child.id)
-                }
+        let child = db.find({ parentId: menuId }).value()
+        if (child) {
+            return {
+                success: false,
+                msg: "请先删除子菜单"
             }
         }
-        if (menu.length > 0) {
-            menuWithChildren.push(menu[0])
-            forFn(menu[0].id)
+        await db.remove({ id: menuId }).write()
+        return {
+            success: true,
+            msg: ""
         }
-        return menuWithChildren
-    },
-    getMenuFunctions: async (menuId) => {
-        let menuList = await menuService.getMenuWithChildren(menuId)
-        let functionList = await functionService.getFunctionList()
-        functionList = _.sortBy(functionList, ["name"])
-        for (let menu of menuList) {
-            menu.functions = functionList.filter(s => {
-                return s.moduleId == menu.id
-            })
-        }
-        return menuList;
     }
 }
 module.exports = menuService

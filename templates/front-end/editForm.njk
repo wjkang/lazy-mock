@@ -1,0 +1,92 @@
+<template>
+  <el-dialog title="编辑" :visible.sync="dialogVisible" @opened="dialogOpen">
+    <el-form ref="form" :model="form" label-width="80px" size="small">
+      <% for property in model.properties -%>
+       <% if property.key!='id' -%>
+        <el-form-item prop="<$ property.key $>" label="<$ property.title $>" :rules="[{ required: true, message: '不能为空'}]">
+          <el-input v-model="form.<$ property.key $>"></el-input>
+        </el-form-item>
+        <% endif -%>
+      <% endfor %>
+      <el-form-item>
+        <el-button type="primary" :loading="loading" @click="save<$ model.Name $>">保存</el-button>
+        <el-button @click="close">取消</el-button>
+      </el-form-item>
+    </el-form>
+
+  </el-dialog>
+
+</template>
+<script>
+import * as <$ model.name $>Service from "@/api<$ model.module $><$ model.name $>";
+export default {
+  name: "<$ model.name $>EditForm",
+  props: {
+    entity: Object,
+    value: Boolean
+  },
+  data() {
+    return {
+      loading: false,
+      dialogVisible: false,
+      form: {
+        <% for property in model.properties -%>
+          <% if property.key!='id' -%>
+            <$ property.key $>: "",
+          <% endif -%>
+        <% endfor %>
+      }
+    };
+  },
+  watch: {
+    value(val) {
+      this.dialogVisible = val;
+    },
+    dialogVisible(val) {
+      this.$emit("input", val);
+    }
+  },
+  methods: {
+    dialogOpen() {
+      this.$refs.form.resetFields();
+      if (this.entity.id) {
+        <$ model.name $>Service.get<$ model.Name $>(this.entity.id).then(data => {
+          let form = {};
+          <% for property in model.properties -%>
+           <% if property.key!='id' -%>
+            form.<$ property.key $> = data.<$ property.key $>;
+           <% endif -%>
+          <% endfor %>
+          this.form = form;
+        });
+      } else {
+        this.form = {};
+      }
+    },
+    save<$ model.Name $>() {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          this.loading = true;
+          <$ model.name $>Service
+            .save<$ model.Name $>({ ...this.form, id: this.entity.id })
+            .then(data => {
+              this.loading = false;
+              this.dialogVisible = false;
+              this.$emit("submit");
+            })
+            .catch(() => {
+              this.loading = false;
+            });
+        } else {
+          return false;
+        }
+      });
+    },
+    close() {
+      this.$refs["form"].resetFields();
+      this.dialogVisible = false;
+    }
+  }
+};
+</script>
+

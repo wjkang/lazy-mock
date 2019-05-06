@@ -27,6 +27,10 @@ lazy mock默认包含了`jwt`实现的登录与登出，实现了基于`RBAC`模
 
 [文档](https://wjkang.github.io/lazy-mock)
 
+## Stargazers over time
+
+[![Stargazers over time](https://starcharts.herokuapp.com/wjkang/lazy-mock.svg)](https://starcharts.herokuapp.com/wjkang/lazy-mock)
+
 
 
 

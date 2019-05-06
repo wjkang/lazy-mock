@@ -11,12 +11,12 @@ module.exports = {
         let db = await model.init(context)
         let <$ model.name $>List = db.value()
         let resultList = <$ model.name $>List
-        <% for property in model.properties %>
+        <% for property in model.properties -%>
             if (filter.<$ property.key $>) {
-                resultList = _.filter(resultList, (o) => {
-                    return o.<$ property.key $>.indexOf(filter.<$ property.key $>) > -1
-                });
-            }
+            resultList = _.filter(resultList, (o) => {
+                return o.<$ property.key $>.indexOf(filter.<$ property.key $>) > -1
+            });
+        }
         <% endfor %>
         let totalCount = resultList.length
         if (sortBy) {

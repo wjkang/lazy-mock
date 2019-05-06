@@ -1,5 +1,4 @@
 import model from '../models/requestLogModel'
-import functionService from './functionService'
 import userService from './userService'
 import _ from 'lodash'
 const context = 'requestLog'

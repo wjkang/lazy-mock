@@ -2,26 +2,25 @@ import <$ model.name $>Service from '../services/<$ model.name $>Service'
 import * as responseTemplate from '../lib/responseTemplate'
 
 export let get<$ model.Name $> = async (ctx) => {
-    let id = ctx.query.id
+    let id = ctx.params.id
     let <$ model.name $> = await <$ model.name $>Service.get<$ model.Name $>(id)
     if (!<$ model.name $>) {
         return responseTemplate.businessError(ctx, "<$ model.name $>不存在!")
     }
-    return responseTemplate.success(ctx, post)
+    return responseTemplate.success(ctx, <$ model.name $>)
 }
 export let get<$ model.Name $>PagedList = async (ctx, next) => {
     let pageIndex = ctx.query.pageIndex
     let pageSize = ctx.query.pageSize
     let sortBy = ctx.query.sortBy
     let descending = ctx.query.descending
-    let filter ={
-        <% for property in model.properties %>
-          <$ property.key $>:ctx.query.<$ property.key $>,
+    let filter = {
+        <% for property in model.properties -%>
+            <$ property.key $>: ctx.query.<$ property.key -$>,
         <% endfor %>
     }
     let pagedList = await <$ model.name $>Service.get<$ model.Name $>PagedList(pageIndex, pageSize, sortBy, descending, filter)
-    responseTemplate.success(ctx, pagedList)
-    return next()
+    return responseTemplate.success(ctx, pagedList)
 }
 export let del<$ model.Name $> = async (ctx) => {
     let id = ctx.query.id
@@ -39,13 +38,13 @@ export let del<$ model.Name $>s = async (ctx) => {
 
 export let save<$ model.Name $> = async (ctx) => {
     let entity = ctx.request.body
-    <% for property in model.properties %>
-      <% if property.key!='id' %>
-        if(entity.<$ property.key $>==""){
-          return responseTemplate.businessError(ctx, "<$ property.title $>不能为空!")
-        }
-      <% endif %>
-    <% endfor %>
+<% for property in model.properties -%>
+    <% if property.key!='id' -%>
+    if (entity.<$ property.key $> == "") {
+        return responseTemplate.businessError(ctx, "<$ property.title $>不能为空!")
+    }
+    <% endif -%>
+<% endfor -%>
     let result = await <$ model.name $>Service.save<$ model.Name $>(entity)
     if (!result.success) {
         return responseTemplate.businessError(ctx, result.msg)
