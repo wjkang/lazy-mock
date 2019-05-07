@@ -2,7 +2,7 @@
 修改`src/config.js`文件
 
 ## 生成mock数据
-配置`codeGenerate/config/model.js`
+配置`templates/config/model.js`
 
 ```js
 buildMockData: function () {//不需要生成设为false
@@ -27,7 +27,7 @@ buildMockData: function () {//不需要生成设为false
 
 * 修改模板
 
-修改`codeGenerate/serverTemplates/route.njk`代码模板，后续生成代码就会以新的模板来生成。
+修改`templates/server/route.njk`代码模板，后续生成代码就会以新的模板来生成。
 
 * 直接修改
 
@@ -35,7 +35,7 @@ buildMockData: function () {//不需要生成设为false
 
 ## 授权配置
 
-默认需要授权访问，请求的时候请求头需要带上token
+默认需要授权访问，请求的时候请求头需要带上 token
 
 * 完全去掉授权限制
 

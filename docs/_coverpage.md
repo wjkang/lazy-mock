@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/1.jpg ':size=200')
+![logo](https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/1.png ':size=200')
 
 # lazy mock
 

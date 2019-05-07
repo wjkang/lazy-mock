@@ -9,7 +9,7 @@
   * [权限接口](permissionapi.md)
 
 * 定制
-  
+  * [模板定制](template.md)
   * [配置](configuration.md)
 
 * 更多
