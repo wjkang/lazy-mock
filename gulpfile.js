@@ -105,5 +105,6 @@ const nunjucksRenderConfig = {
   FrontendFullPath
 }
 gulp.task('code', function () {
+  require('events').EventEmitter.defaultMaxListeners = 0
   return codeGenerate(gulp, nunjucksRender, rename, nunjucksRenderConfig)
 });

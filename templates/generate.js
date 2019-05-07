@@ -36,7 +36,7 @@ module.exports = function generate(gulp, nunjucksRender, rename, nunjucksRenderC
         .pipe(rename(Model.name + 'Route.js'))
         .pipe(gulp.dest(ServerProjectRootPath + CodeGenerateConfig.config.RouteRelativePath));
 
-    //page
+    //front-end
     const pageTemplatePath = 'templates/front-end/'
     gulp.src(`${pageTemplatePath}api.njk`)
         .pipe(nunjucksRender(nunjucksRenderConfig))
@@ -48,8 +48,22 @@ module.exports = function generate(gulp, nunjucksRender, rename, nunjucksRenderC
         .pipe(rename('editForm.vue'))
         .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.PagesRelativePath, Model.module, Model.name)));
 
-    return gulp.src(`${pageTemplatePath}index.njk`)
+    gulp.src(`${pageTemplatePath}index.njk`)
         .pipe(nunjucksRender(nunjucksRenderConfig))
         .pipe(rename('index.vue'))
         .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.PagesRelativePath, Model.module, Model.name)));
+    gulp.src(`${pageTemplatePath}routerMapComponent.njk`)
+        .pipe(nunjucksRender(nunjucksRenderConfig))
+        .pipe(rename(Model.name + '.js'))
+        .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.RouterMapComponentRelativePath)));
+
+    gulp.src(`${pageTemplatePath}menu.njk`)
+        .pipe(nunjucksRender(nunjucksRenderConfig))
+        .pipe(rename(Model.name + '.js'))
+        .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.MenuRelativePath)));
+
+    return gulp.src(`${pageTemplatePath}router.njk`)
+        .pipe(nunjucksRender(nunjucksRenderConfig))
+        .pipe(rename(Model.name + '.js'))
+        .pipe(gulp.dest(path.join(FrontendFullPath, CodeGenerateConfig.config.RouterRelativePath)));
 }
