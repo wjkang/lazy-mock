@@ -1,22 +1,5 @@
-## 配置应用信息
-修改`codeGenerate/config/config.js`，只需要更新`ServerRootPath`为当前项目的根目录
-
-```js
-export default {
-    ApiServer:'http://localhost:3000',
-    ServerRootPath:'G:/GitHubProject/lazy-mock',
-    //server
-    RouteRelativePath:'/src/routes/',
-    ControllerRelativePath:'/src/controllers/',
-    ServiceRelativePath:'/src/services/',
-    ModelRelativePath:'/src/models/',
-    DBRelativePath:'/src/db/'
-}
-```
-
-
 ## 配置实体
-修改`codeGenerate/config/model.js`，比如
+修改 `templates/config/model.js` ，比如
 ```js
 var shortid = require('shortid')
 var Mock = require('mockjs')
@@ -71,7 +54,7 @@ npm run code
 
 接口默认需要授权访问，请求头需要带上token。
 
->token登录成功后取到
+>token 登录成功后取到
 
 以`axios`为例（后面请求接口也是使用`axios`）
 ```js
@@ -150,10 +133,8 @@ request({
 
 ```js
 request({
-    url: '/book/get',
-    method: 'get',
-    params: {
-        id:'dsdsd23e23e'
+    url: '/book/dsdsd23e23e',
+    method: 'get'
   })
 ```
 

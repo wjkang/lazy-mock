@@ -5,7 +5,6 @@ var Random = Mock.Random
 
 //必须包含字段id
 export default {
-    module: "/sys/",
     name: "book",
     Name: "Book",
     properties: [
