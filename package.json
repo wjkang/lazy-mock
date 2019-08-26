@@ -22,7 +22,8 @@
     "lowdb": "^1.0.0",
     "matchit": "^1.0.8",
     "require-directory": "^2.1.1",
-    "shortid": "^2.2.13"
+    "shortid": "^2.2.13",
+    "superagent": "^5.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

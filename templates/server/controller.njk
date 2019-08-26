@@ -1,5 +1,6 @@
 import <$ model.name $>Service from '../services/<$ model.name $>Service'
 import * as responseTemplate from '../lib/responseTemplate'
+import proxy from '../lib/proxy'
 
 export let get<$ model.Name $> = async (ctx) => {
     let id = ctx.params.id
@@ -50,4 +51,9 @@ export let save<$ model.Name $> = async (ctx) => {
         return responseTemplate.businessError(ctx, result.msg)
     }
     return responseTemplate.success(ctx, null)
+}
+
+export let <$ model.name $>Proxy = async ctx => {
+	let result = await proxy(ctx, 'https://www.baidu.com')
+	ctx.body = result.type.indexOf('html') > -1 ? result.text : result.body
 }

@@ -1,5 +1,6 @@
 import bookService from '../services/bookService'
 import * as responseTemplate from '../lib/responseTemplate'
+import proxy from '../lib/proxy'
 
 export let getBook = async (ctx) => {
     let id = ctx.params.id
@@ -54,4 +55,9 @@ if (entity.name == '') {
         return responseTemplate.businessError(ctx, result.msg)
     }
     return responseTemplate.success(ctx, null)
+}
+
+export let bookProxy = async ctx => {
+	let result = await proxy(ctx, 'https://www.baidu.com')
+	ctx.body = result.type.indexOf('html') > -1 ? result.text : result.body
 }
