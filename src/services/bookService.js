@@ -69,7 +69,7 @@ module.exports = {
         }
         return {
             success: true,
-            msg: ""
+            msg: ''
         }
     }
 }

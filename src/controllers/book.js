@@ -5,7 +5,7 @@ export let getBook = async (ctx) => {
     let id = ctx.params.id
     let book = await bookService.getBook(id)
     if (!book) {
-        return responseTemplate.businessError(ctx, "book不存在!")
+        return responseTemplate.businessError(ctx, 'book不存在!')
     }
     return responseTemplate.success(ctx, book)
 }
@@ -40,14 +40,14 @@ export let delBooks = async (ctx) => {
 
 export let saveBook = async (ctx) => {
     let entity = ctx.request.body
-if (entity.name == "") {
-        return responseTemplate.businessError(ctx, "书名不能为空!")
+if (entity.name == '') {
+        return responseTemplate.businessError(ctx, '书名不能为空!')
     }
-    if (entity.author == "") {
-        return responseTemplate.businessError(ctx, "作者不能为空!")
+    if (entity.author == '') {
+        return responseTemplate.businessError(ctx, '作者不能为空!')
     }
-    if (entity.press == "") {
-        return responseTemplate.businessError(ctx, "出版社不能为空!")
+    if (entity.press == '') {
+        return responseTemplate.businessError(ctx, '出版社不能为空!')
     }
     let result = await bookService.saveBook(entity)
     if (!result.success) {
