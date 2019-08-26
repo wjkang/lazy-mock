@@ -17,7 +17,7 @@ if (env === 'development') {
     const start = new Date()
     return next().then(() => {
       const ms = new Date() - start
-      console.log(`${ctx.ip} ${ctx.method} ${decodeURI(ctx.url)} - ${ms}ms`)
+      console.log(`${ctx.method} ${decodeURI(ctx.url)} - ${ms}ms`)
     })
   })
 }
