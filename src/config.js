@@ -1,7 +1,7 @@
 
 // 系统配置
 export let System = {
-  API_SERVER_PORT: '3000', // API服务器监听的端口号
+  API_SERVER_PORT: '3001', // API服务器监听的端口号
   WS_CONFIG: {
     port: 3001,
     perMessageDeflate: {
