@@ -5,6 +5,7 @@ const nodemon = require('gulp-nodemon')
 const rename = require('gulp-rename')
 const nunjucksRender = require('gulp-nunjucks-render')
 const codeGenerate = require('./templates/generate')
+const migrate = require('./migration')
 
 var jsScript = 'node'
 if (
@@ -58,4 +59,20 @@ const nunjucksRenderConfig = {
 gulp.task('code', function() {
 	require('events').EventEmitter.defaultMaxListeners = 0
 	return codeGenerate(gulp, nunjucksRender, rename, nunjucksRenderConfig)
+})
+
+gulp.task('migrate', async function(cb) {
+	let options = process.argv[4]
+	if (options) {
+		options = JSON.parse(options)
+	}
+	let modules = []
+	for (let module of options) {
+		let s = module.split(':')
+		modules.push({
+			entity: s[0],
+			keys: s[1] ? s[1].split(',') : []
+		})
+	}
+	await migrate(modules, cb)
 })
