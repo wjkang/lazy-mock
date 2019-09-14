@@ -1,3 +1,5 @@
+const fse = require('fs-extra')
+
 let requireDirectory = require('require-directory')
 let modules = requireDirectory(module)
 const ServerFullPath = require('../package.json').ServerFullPath
@@ -21,6 +23,6 @@ module.exports = async function migrate(migrateModules, cb) {
 }
 function migrateItem(item) {
 	const fileFullPath = ServerFullPath + item.target
-	
+
 	return Promise.resolve(1)
 }
