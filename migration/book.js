@@ -4,7 +4,7 @@ module.exports = {
 		migrate: [
 			{
 				from: '/book/proxy',
-				to: '/book/proxy'
+				to: '/book/proxy123'
 			},
 			{
 				from: '/book/paged',
