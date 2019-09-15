@@ -1,4 +1,4 @@
-const path = require('path')
+const fs = require('fs-extra')
 const CodeGenerateConfig = require('./config').default
 const Model = CodeGenerateConfig.model
 
@@ -62,5 +62,41 @@ module.exports = {
 				)
 			)
 	},
-	quickAdd: function(options) {}
+	quickAdd: async function(options, nunjucksRenderConfig) {
+		const ServerProjectRootPath = nunjucksRenderConfig.ServerFullPath
+		const serverTemplatePath = 'templates/server/quickAdd/'
+		const existFileFullPath =
+			ServerProjectRootPath +
+			CodeGenerateConfig.config.ControllerRelativePath +
+			options[0] +
+			'.js'
+		let controllerTemplate = await fs.readFile(
+			`${ServerProjectRootPath}${serverTemplatePath}quickAdd/controller.njk`,
+			'utf-8'
+		)
+		let routeTemplate = await fs.readFile(
+			`${ServerProjectRootPath}${serverTemplatePath}quickAdd/route.njk`,
+			'utf-8'
+		)
+		if (await fs.exists(existFileFullPath)) {
+			console.log('exist entity')
+
+			await fs.appendFile(
+				ServerProjectRootPath +
+					CodeGenerateConfig.config.ControllerRelativePath +
+					options[0] +
+					'.js',
+				controllerTemplate.replace(/<$ name $>/g, options[2])
+			)
+			let controllerContent = await fs.readFile(
+				ServerProjectRootPath +
+					CodeGenerateConfig.config.ControllerRelativePath +
+					options[0] +
+					'.js',
+				'utf-8'
+			)
+			let controllerContentLines = controllerContent.split('\n')
+			console.log(controllerContentLines)
+		}
+	}
 }

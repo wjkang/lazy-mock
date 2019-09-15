@@ -85,4 +85,5 @@ gulp.task('add', async function(cb) {
 	if (options.length === 2) {
 		options[2] = options[1]
 	}
+	await codeGenerate.quickAdd(options, nunjucksRenderConfig)
 })
