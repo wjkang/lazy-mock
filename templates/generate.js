@@ -88,15 +88,29 @@ module.exports = {
 					'.js',
 				controllerTemplate.replace(/<\$ name \$>/g, options[2])
 			)
-			let controllerContent = await fs.readFile(
+			let routeContent = await fs.readFile(
 				ServerProjectRootPath +
-					CodeGenerateConfig.config.ControllerRelativePath +
+					CodeGenerateConfig.config.RouteRelativePath +
 					options[0] +
-					'.js',
+					'Route.js',
 				'utf-8'
 			)
-			let controllerContentLines = controllerContent.split('\n')
-			console.log(controllerContentLines)
+			let routeContentLines = routeContent.split('\n')
+			routeContentLines.splice(
+				-2,
+				0,
+				`    .get('${options[1]}', controllers.${options[0]}.${
+					options[2]
+				})\r`
+			)
+			await fs.writeFile(
+				ServerProjectRootPath +
+					CodeGenerateConfig.config.RouteRelativePath +
+					options[0] +
+					'Route.js',
+				routeContentLines.join('\n')
+			)
+		} else {
 		}
 	}
 }
