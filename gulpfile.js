@@ -58,7 +58,7 @@ const nunjucksRenderConfig = {
 }
 gulp.task('code', function() {
 	require('events').EventEmitter.defaultMaxListeners = 0
-	return codeGenerate(gulp, nunjucksRender, rename, nunjucksRenderConfig)
+	return codeGenerate.run(gulp, nunjucksRender, rename, nunjucksRenderConfig)
 })
 
 gulp.task('migrate', async function(cb) {
@@ -75,4 +75,14 @@ gulp.task('migrate', async function(cb) {
 		})
 	}
 	await migrate(modules, cb)
+})
+
+gulp.task('add', async function(cb) {
+	let options = process.argv[4].split('|')
+	if (options.length === 1) {
+		options[1] = 'new_api'
+	}
+	if (options.length === 2) {
+		options[2] = options[1]
+	}
 })
