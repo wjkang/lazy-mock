@@ -71,11 +71,11 @@ module.exports = {
 			options[0] +
 			'.js'
 		let controllerTemplate = await fs.readFile(
-			`${ServerProjectRootPath}${serverTemplatePath}quickAdd/controller.njk`,
+			`${ServerProjectRootPath}${serverTemplatePath}controller.njk`,
 			'utf-8'
 		)
 		let routeTemplate = await fs.readFile(
-			`${ServerProjectRootPath}${serverTemplatePath}quickAdd/route.njk`,
+			`${ServerProjectRootPath}${serverTemplatePath}route.njk`,
 			'utf-8'
 		)
 		if (await fs.exists(existFileFullPath)) {
