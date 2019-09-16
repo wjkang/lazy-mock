@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 let requireDirectory = require('require-directory')
 let modules = requireDirectory(module)
 const ServerFullPath = require('../package.json').ServerFullPath
-const FrontEndFullPath = require('../package.json').ServerFullPath
+const FrontEndFullPath = require('../package.json').FrontendFullPath
 module.exports = async function migrate(migrateModules, cb) {
 	for (let migrateModule of migrateModules) {
 		let needMigrate = modules[migrateModule.entity]
@@ -24,7 +24,7 @@ module.exports = async function migrate(migrateModules, cb) {
 		}
 		// front
 		for (let key in needMigrate.frontEnd) {
-			await migrateItem(needMigrate.server[key], FrontEndFullPath)
+			await migrateItem(needMigrate.frontEnd[key], FrontEndFullPath)
 		}
 	}
 	cb()

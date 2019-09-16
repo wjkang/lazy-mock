@@ -63,7 +63,17 @@ module.exports = {
 			suffix: ' = async'
 		}
 	},
-	frontEnd:{
-		
+	frontEnd: {
+		test: {
+			target: '/wewew.txt',
+			migrate: [
+				{
+					from: 'df',
+					to: 'jjjjjjjjjjjj'
+				}
+			],
+			prefix: '',
+			suffix: ''
+		}
 	}
 }
