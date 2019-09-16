@@ -9,15 +9,19 @@ module.exports = async function migrate(migrateModules, cb) {
 		if (!needMigrate) {
 			continue
 		}
+		// server
 		if (migrateModule.keys.length > 0) {
 			for (let key of migrateModule.keys) {
-				await migrateItem(needMigrate[key])
+				if (key !== 'frontEnd' && key !== 'front') {
+					await migrateItem(needMigrate.server[key])
+				}
 			}
 		} else {
-			for (let key in needMigrate) {
-				await migrateItem(needMigrate[key])
+			for (let key in needMigrate.server) {
+				await migrateItem(needMigrate.server[key])
 			}
 		}
+		// 
 	}
 	cb()
 }
