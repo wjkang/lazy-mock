@@ -3,6 +3,7 @@ const fs = require('fs-extra')
 let requireDirectory = require('require-directory')
 let modules = requireDirectory(module)
 const ServerFullPath = require('../package.json').ServerFullPath
+const FrontEndFullPath = require('../package.json').ServerFullPath
 module.exports = async function migrate(migrateModules, cb) {
 	for (let migrateModule of migrateModules) {
 		let needMigrate = modules[migrateModule.entity]
@@ -13,20 +14,26 @@ module.exports = async function migrate(migrateModules, cb) {
 		if (migrateModule.keys.length > 0) {
 			for (let key of migrateModule.keys) {
 				if (key !== 'frontEnd' && key !== 'front') {
-					await migrateItem(needMigrate.server[key])
+					await migrateItem(needMigrate.server[key], ServerFullPath)
 				}
 			}
 		} else {
 			for (let key in needMigrate.server) {
-				await migrateItem(needMigrate.server[key])
+				await migrateItem(needMigrate.server[key], ServerFullPath)
 			}
 		}
-		// 
+		// front
+		for (let key in needMigrate.frontEnd) {
+			await migrateItem(needMigrate.server[key], FrontEndFullPath)
+		}
 	}
 	cb()
 }
-async function migrateItem(item) {
-	const fileFullPath = ServerFullPath + item.target
+async function migrateItem(item, rootPath) {
+	if (!item) {
+		return
+	}
+	const fileFullPath = rootPath + item.target
 	let content = await fs.readFile(fileFullPath, 'utf-8')
 	for (let detail of item.migrate) {
 		let from = item.prefix + detail.from + item.suffix
