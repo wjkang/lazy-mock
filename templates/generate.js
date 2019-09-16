@@ -111,6 +111,24 @@ module.exports = {
 				routeContentLines.join('\n')
 			)
 		} else {
+			await fs.writeFile(
+				ServerProjectRootPath +
+					CodeGenerateConfig.config.ControllerRelativePath +
+					options[0] +
+					'.js',
+				controllerTemplate.replace(/<\$ name \$>/g, options[2])
+			)
+
+			await fs.writeFile(
+				ServerProjectRootPath +
+					CodeGenerateConfig.config.RouteRelativePath +
+					options[0] +
+					'Route.js',
+				routeTemplate
+					.replace(/<\$ api \$>/g, options[1])
+					.replace(/<\$ entity \$>/g, options[0])
+					.replace(/<\$ method \$>/g, options[2])
+			)
 		}
 	}
 }

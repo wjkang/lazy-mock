@@ -1,0 +1,8 @@
+import KoaRouter from 'koa-router'
+import controllers from '../controllers/index.js'
+import proxy from '../middleware/Proxy'
+
+const router = new KoaRouter()
+router
+    .get('<$ api $>', controllers.<$ entity $>.<$ method $>)
+module.exports = router
