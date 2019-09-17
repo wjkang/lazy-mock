@@ -1,69 +1,75 @@
 <p align="center">
-    <a href="https://github.com/wjkang/lazy-mock">
-        <img width="250" src="https://raw.githubusercontent.com/wjkang/lazy-mock/master/screenshot/1.png">
-    </a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-## 关于lazy mock
-> 一个快速生成后端模拟数据的懒人工具
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
+  
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## 是什么
+## Description
 
-lazy mock 是一个使用`koa2`构建的，`lowdb`持久化数据到JSON文件的快速生成后端模拟数据的工具。只需要简单的配置就可以实现和json-server一样的功能，但是比json-server更加灵活，后期可配置性更强，完全可以模拟真实后端业务逻辑。  
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-lazy mock默认包含了`jwt`实现的登录与登出，实现了基于`RBAC`模型的通用权限控制逻辑。
+## Installation
 
-## 安装
-
-``` bash
-$ npm install -g lazy-mock
+```bash
+$ npm install
 ```
 
-## 使用
+## Running the app
 
-``` bash
-$ lazy-mock init <template-name> <project-name>
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
 ```
 
-例子:
+## Test
 
-``` bash
-$ lazy-mock init d2-admin-pm my-project
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
 ```
 
-在 my-project 目录下执行 npm install
+## Support
 
-## 目前支持模板
-* [rbac](https://github.com/lazy-mock-templates/rbac) --- 包含 RBAC 权限控制模型
-* [d2-admin-pm](https://github.com/lazy-mock-templates/d2-admin-pm) --- 包含 [d2-admin-pm](https://github.com/wjkang/d2-admin-pm) 的 curd 模板
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
->支持模板开发及自定义，详细看文档
+## Stay in touch
 
-## 特性
-- 轻松对接`mock.js`，`faker.js`等假数据生成工具
-- 不需要数据库，直接持久化数据到JSON文件
-- 相比json-server单JSON文件，支持一个实体一个JSON文件
-- 默认包含了`jwt`实现的登录与登出，基于`RBAC`模型的权限控制
-- 使用 `async/await` 处理异步问题
-- `MVC`代码分层结构
-- 内置简单代码生成器
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
+## License
 
-
-[文档](https://wjkang.github.io/lazy-mock)
-
-## Stargazers over time
-
-[![Stargazers over time](https://starcharts.herokuapp.com/wjkang/lazy-mock.svg)](https://starcharts.herokuapp.com/wjkang/lazy-mock)
-
-
-
-
-
-
-
-
-
-
-
-
+  Nest is [MIT licensed](LICENSE).
