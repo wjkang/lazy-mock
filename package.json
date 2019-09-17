@@ -8,10 +8,14 @@
 		"dev": "gulp",
 		"build": "babel src -d dist",
 		"code": "gulp code",
+		"migrate": "gulp migrate --options [\\\"book:api,controller\\\"] ",
+		"add": "gulp add --options \"book|/book/new|bookNew\" ",
 		"production": "cross-env NODE_ENV=production node dist/app.js",
 		"doc": "docsify serve docs"
 	},
 	"dependencies": {
+		"@babel/runtime": "^7.6.0",
+		"fs-extra": "^8.1.0",
 		"koa": "^2.8.1",
 		"koa-body": "^4.1.1",
 		"koa-router": "^7.4.0",
@@ -23,16 +27,15 @@
 		"matchit": "^1.0.8",
 		"require-directory": "^2.1.1",
 		"shortid": "^2.2.15",
-		"superagent": "^5.1.0",
-		"@babel/runtime": "^7.6.0"
+		"superagent": "^5.1.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.6.0",
 		"@babel/cli": "^7.6.0",
-		"@babel/preset-env": "^7.6.0",
-		"@babel/register": "^7.6.0",
+		"@babel/core": "^7.6.0",
 		"@babel/plugin-transform-runtime": "^7.6.0",
 		"@babel/polyfill": "^7.6.0",
+		"@babel/preset-env": "^7.6.0",
+		"@babel/register": "^7.6.0",
 		"cross-env": "^5.2.1",
 		"gulp": "^4.0.2",
 		"gulp-nodemon": "^2.4.2",
@@ -45,6 +48,6 @@
 		"node": ">= 7.8.0",
 		"npm": ">= 4.2.0"
 	},
-	"ServerFullPath": "D:/GitHubProject/lazy-mock",
-	"FrontendFullPath": ""
+	"ServerFullPath": "G:/GitHubProject/lazy-mock",
+	"FrontendFullPath": "C:/Users/Administrator/Desktop"
 }
