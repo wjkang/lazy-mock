@@ -6,43 +6,54 @@ import { System as SystemConfig } from './config'
 import path from 'path'
 import Routes from './routes/index'
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
+const https = require('https')
+const fs = require('fs')
 
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
 
 app.use(cors())
 if (env === 'development') {
-  // logger
-  app.use((ctx, next) => {
-    const start = new Date()
-    return next().then(() => {
-      const ms = new Date() - start
-      console.log(`${ctx.method} ${decodeURI(ctx.url)} - ${ms}ms`)
-    })
-  })
+	// logger
+	app.use((ctx, next) => {
+		const start = new Date()
+		return next().then(() => {
+			const ms = new Date() - start
+			console.log(`${ctx.method} ${decodeURI(ctx.url)} - ${ms}ms`)
+		})
+	})
 }
-app
-  .use(ErrorRoutesCatch())
-  .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
-  .use(
-    KoaBody({
-      multipart: true,
-      strict: false,
-      formidable: {
-        uploadDir: path.join(__dirname, '../assets/uploads/tmp')
-      },
-      jsonLimit: '10mb',
-      formLimit: '10mb',
-      textLimit: '10mb'
-    })
-  )
+app.use(ErrorRoutesCatch())
+	.use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
+	.use(
+		KoaBody({
+			multipart: true,
+			strict: false,
+			formidable: {
+				uploadDir: path.join(__dirname, '../assets/uploads/tmp')
+			},
+			jsonLimit: '10mb',
+			formLimit: '10mb',
+			textLimit: '10mb'
+		})
+	)
 
 Object.keys(Routes).forEach(function(key) {
-  app.use(Routes[key].routes()).use(Routes[key].allowedMethods())
+	app.use(Routes[key].routes()).use(Routes[key].allowedMethods())
 })
-
-app.listen(SystemConfig.API_SERVER_PORT)
-
-console.log('Now start API server on port ' + SystemConfig.API_SERVER_PORT + '...')
+const options = {
+	key: fs.readFileSync('./ca-key.pem'),
+	cert: fs.readFileSync('./ca-cert.pem')
+}
+https
+	.createServer(options, app.callback())
+	.listen(SystemConfig.API_SERVER_PORT, () => {
+		console.log(
+			'Now start API server on port ' +
+				SystemConfig.API_SERVER_PORT +
+				'...'
+		)
+	})
+//app.listen(SystemConfig.API_SERVER_PORT)//http
 
 export default app
