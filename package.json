@@ -8,6 +8,8 @@
 		"dev": "gulp",
 		"build": "babel src -d dist",
 		"code": "gulp code",
+		"migrate": "gulp migrate --options [\\\"book:api,controller\\\"] ",
+		"add": "gulp add --options \"book|/book/new|bookNew\" ",
 		"production": "cross-env NODE_ENV=production node dist/app.js",
 		"doc": "docsify serve docs"
 	},

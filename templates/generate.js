@@ -1,4 +1,4 @@
-const path = require('path')
+const fs = require('fs-extra')
 const CodeGenerateConfig = require('./config').default
 const Model = CodeGenerateConfig.model
 
