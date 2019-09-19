@@ -45,15 +45,18 @@ const options = {
 	key: fs.readFileSync('./ca-key.pem'),
 	cert: fs.readFileSync('./ca-cert.pem')
 }
-https
-	.createServer(options, app.callback())
-	.listen(SystemConfig.API_SERVER_PORT, () => {
-		console.log(
-			'Now start API server on port ' +
-				SystemConfig.API_SERVER_PORT +
-				'...'
-		)
-	})
-//app.listen(SystemConfig.API_SERVER_PORT)//http
+// https
+// 	.createServer(options, app.callback())
+// 	.listen(SystemConfig.API_SERVER_PORT, () => {
+// 		console.log(
+// 			'Now start API server on port ' +
+// 				SystemConfig.API_SERVER_PORT +
+// 				'...'
+// 		)
+// 	})
+app.listen(SystemConfig.API_SERVER_PORT) // http
+console.log(
+	'Now start API server on port ' + SystemConfig.API_SERVER_PORT + '...'
+)
 
 export default app
