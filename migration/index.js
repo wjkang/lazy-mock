@@ -23,8 +23,10 @@ module.exports = async function migrate(migrateModules, cb) {
 			}
 		}
 		// front
-		for (let key in needMigrate.frontEnd) {
-			await migrateItem(needMigrate.frontEnd[key], FrontEndFullPath)
+		if (needMigrate.frontEnd) {
+			for (let key in needMigrate.frontEnd) {
+				await migrateItem(needMigrate.frontEnd[key], FrontEndFullPath)
+			}
 		}
 	}
 	cb()

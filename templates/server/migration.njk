@@ -1,0 +1,68 @@
+module.exports = {
+	server: {
+		api: {
+			target: '/src/routes/<$ model.name $>Route.js',
+			migrate: [
+				{
+					from: '/<$ model.name $>/proxy',
+					to: '/<$ model.name $>/proxy'
+				},
+				{
+					from: '/<$ model.name $>/paged',
+					to: '/<$ model.name $>/paged'
+				},
+				{
+					from: '/<$ model.name $>/:id',
+					to: '/<$ model.name $>/:id'
+				},
+				{
+					from: '/<$ model.name $>/del',
+					to: '/<$ model.name $>/del'
+				},
+				{
+					from: '/<$ model.name $>/batchdel',
+					to: '/<$ model.name $>/batchdel'
+				},
+				{
+					from: '/<$ model.name $>/save',
+					to: '/<$ model.name $>/save'
+				}
+			],
+			prefix: '',
+			suffix: ''
+		},
+		controller: {
+			target: '/src/controllers/<$ model.name $>.js',
+			migrate: [
+				{
+					from: 'get<$ model.Name $>',
+					to: 'get<$ model.Name $>'
+				},
+				{
+					from: 'get<$ model.Name $>PagedList',
+					to: 'get<$ model.Name $>PagedList'
+				},
+				{
+					from: 'del<$ model.Name $>',
+					to: 'del<$ model.Name $>'
+				},
+				{
+					from: 'del<$ model.Name $>s',
+					to: 'del<$ model.Name $>s'
+				},
+				{
+					from: 'save<$ model.Name $>',
+					to: 'save<$ model.Name $>'
+				},
+				{
+					from: '<$ model.name $>Proxy',
+					to: '<$ model.name $>Proxy'
+				}
+			],
+			prefix: 'export let ',
+			suffix: ' = async'
+		}
+	},
+	frontEnd: {
+	}
+}

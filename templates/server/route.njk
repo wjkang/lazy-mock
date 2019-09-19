@@ -10,5 +10,5 @@ router
     .del('/<$ model.name $>/del', controllers.<$ model.name $>.del<$ model.Name $>)
     .del('/<$ model.name $>/batchdel', controllers.<$ model.name $>.del<$ model.Name $>s)
     .post('/<$ model.name $>/save', controllers.<$ model.name $>.save<$ model.Name $>)
-    .all(/(|^$)/, proxy('https://baidu.com'))
+    .all(/\/<$ model.name $>\/(|^$)/, proxy('https://baidu.com'))
 module.exports = router
