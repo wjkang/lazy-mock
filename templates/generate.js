@@ -54,7 +54,7 @@ module.exports = {
 		gulp.src(`${serverTemplatePath}migration.njk`)
 			.pipe(nunjucksRender(nunjucksRenderConfig))
 			.pipe(rename(Model.name + '.js'))
-			.pipe(gulp.dest(ServerProjectRootPath + '/src/migration/'))
+			.pipe(gulp.dest(ServerProjectRootPath + '/migration/'))
 
 		return gulp
 			.src(`${serverTemplatePath}route.njk`)

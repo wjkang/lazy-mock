@@ -10,5 +10,5 @@ router
     .del('/book/del', controllers.book.delBook)
     .del('/book/batchdel', controllers.book.delBooks)
     .post('/book/save', controllers.book.saveBook)
-    .all(/(|^$)/, proxy('https://baidu.com'))
+    .all(/\/book\/(|^$)/, proxy('https://baidu.com'))
 module.exports = router
