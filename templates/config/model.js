@@ -13,13 +13,6 @@ let properties = [
 		}
 	},
 	{
-		key: 'taskId',
-		title: 'taskId',
-		value: function() {
-			return Random.id()
-		}
-	},
-	{
 		key: 'applyNo',
 		title: 'applyNo',
 		value: function() {
@@ -30,7 +23,7 @@ let properties = [
 		key: 'applyTitle',
 		title: 'applyTitle',
 		value: function() {
-			return Random.cname() + '的角色及服务范围申请（首次）'
+			return Random.cname()
 		}
 	},
 	{
