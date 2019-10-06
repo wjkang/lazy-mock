@@ -1,0 +1,53 @@
+.home {
+	margin: 0 auto;
+	margin-top: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
+	box-shadow: 0px 4px 13px 0px rgba(234, 234, 234, 1);
+	border-radius: 6px;
+	.title {
+		margin-top: 56px;
+		height: 30px;
+		line-height: 24px;
+		text-align: center;
+		font-size: 24px;
+		font-weight: 600;
+		color: rgba(69, 69, 69, 1);
+	}
+	label {
+		margin-top: 30px;
+		font-size: 16px;
+		font-weight: 400;
+		color: rgba(144, 144, 144, 1);
+		line-height: 16px;
+	}
+	input[type='text'],
+	select,
+	textarea {
+		border-radius: 4px;
+		border: 1px solid rgba(234, 234, 234, 1);
+		height: 56px;
+		margin-top: 14px;
+		box-shadow: none;
+	}
+	textarea {
+		height: 129px;
+	}
+	button {
+		height: 48px;
+		margin-top: 20px;
+		margin-bottom: 50px;
+		border-radius: 6px;
+		font-size: 16px;
+		font-weight: 600;
+		color: rgba(255, 255, 255, 1);
+	}
+	.pure-button-disabled {
+		opacity: 1;
+		cursor: pointer;
+		background: rgba(201, 201, 201, 1);
+	}
+	.button-warning {
+		background: rgba(235, 91, 88, 1);
+	}
+}
