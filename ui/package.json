@@ -1,7 +1,7 @@
 {
-	"name": "bot-app",
+	"name": "lazy-mock-ui",
 	"version": "1.0.0",
-	"description": "bot-app",
+	"description": "lazy-mock-ui",
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
@@ -39,8 +39,9 @@
 		"rimraf": "^3.0.0",
 		"sass-loader": "^8.0.0",
 		"style-loader": "^1.0.0",
+		"ts-loader": "^6.2.0",
 		"tslint": "^5.19.0",
-		"typescript": "^3.6.2",
+		"typescript": "^3.6.3",
 		"uglifyjs-webpack-plugin": "^2.2.0",
 		"webpack": "^4.39.3",
 		"webpack-bundle-analyzer": "^3.5.2",
@@ -48,9 +49,11 @@
 		"webpack-dev-middleware": "^3.7.1",
 		"webpack-dev-server": "^3.8.0",
 		"webpack-merge": "^4.2.2",
-		"webpackbar": "^4.0.0"
+		"webpackbar": "^4.0.0",
+		"ts-import-plugin": "^1.6.1"
 	},
 	"dependencies": {
+		"antd": "^3.23.6",
 		"axios": "^0.19.0",
 		"express": "^4.17.1",
 		"purecss": "^1.0.1",

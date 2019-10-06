@@ -3,6 +3,8 @@ const { resolve } = require('path')
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TsImportPluginFactory = require('ts-import-plugin')
+
 module.exports = {
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.jsx']
@@ -16,9 +18,45 @@ module.exports = {
 				exclude: /node_modules/
 			},
 			{
-				test: /\.tsx?$/,
-				use: ['babel-loader', 'awesome-typescript-loader']
+				test: /\.(tsx|ts)$/,
+				loader: 'ts-loader',
+				options: {
+					transpileOnly: true,
+					getCustomTransformers: () => ({
+						before: [
+							TsImportPluginFactory({
+								libraryName: 'antd',
+								libraryDirectory: 'lib',
+								style: 'css'
+							})
+						]
+					}),
+					compilerOptions: {
+						module: 'es2015'
+					}
+				},
+				exclude: /node_modules/
 			},
+			// {
+			// 	test: /\.tsx?$/,
+			// 	loaders: [
+			// 		'babel-loader',
+			// 		{
+			// 			loader: 'awesome-typescript-loader',
+			// 			options: {
+			// 				getCustomTransformers: () => ({
+			// 					before: [
+			// 						TsImportPluginFactory({
+			// 							libraryName: 'antd',
+			// 							libraryDirectory: 'lib',
+			// 							style: 'css'
+			// 						})
+			// 					]
+			// 				})
+			// 			}
+			// 		}
+			// 	]
+			// },
 			{
 				test: /\.css$/,
 				use: [
@@ -79,7 +117,7 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// all options are optional
-			filename: 'css/[name].css',
+			filename: 'css/[name].[hash].css',
 			//chunkFilename: 'css/[name].css',
 			ignoreOrder: false // Enable to remove warnings about conflicting order
 		}),

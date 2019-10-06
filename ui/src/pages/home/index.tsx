@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Button } from 'antd'
 import './css.scss'
 import ReleaseLogApi from '../../api/ReleaseLog.Api'
 
@@ -234,6 +235,7 @@ class Home extends React.Component<{}, State> {
 									}}>
 									确认无误，发送吧
 								</button>
+								<Button type="primary">Button</Button>
 							</div>
 						</div>
 					</form>
