@@ -3,6 +3,7 @@ const merge = require('webpack-merge')
 const webpack = require('webpack')
 const commonConfig = require('./common')
 const Dotenv = require('dotenv-webpack')
+const WebpackBar = require('webpackbar')
 
 module.exports = merge(commonConfig, {
 	mode: 'development',
@@ -15,7 +16,7 @@ module.exports = merge(commonConfig, {
 	devServer: {
 		hot: true, // enable HMR on the server
 		//noInfo: true,
-		quiet: false,
+		quiet: true,
 		stats: 'errors-only'
 	},
 	devtool: 'cheap-module-eval-source-map',
@@ -28,6 +29,9 @@ module.exports = merge(commonConfig, {
 			systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
 			silent: true, // hide any errors
 			defaults: false // load '.env.defaults' as the default values if empty.
+		}),
+		new WebpackBar({
+			profile: true
 		})
 	]
 })
