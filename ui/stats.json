@@ -1,0 +1,30 @@
+{
+  "errors": [
+    "Entry module not found: Error: Can't resolve './src' in 'G:\\GitHubProject\\lazy-mock\\ui'\nresolve './src' in 'G:\\GitHubProject\\lazy-mock\\ui'\n  using description file: G:\\GitHubProject\\lazy-mock\\ui\\package.json (relative path: .)\n    Field 'browser' doesn't contain a valid alias configuration\n    using description file: G:\\GitHubProject\\lazy-mock\\ui\\package.json (relative path: ./src)\n      no extension\n        Field 'browser' doesn't contain a valid alias configuration\n        G:\\GitHubProject\\lazy-mock\\ui\\src is not a file\n      .wasm\n        Field 'browser' doesn't contain a valid alias configuration\n        G:\\GitHubProject\\lazy-mock\\ui\\src.wasm doesn't exist\n      .mjs\n        Field 'browser' doesn't contain a valid alias configuration\n        G:\\GitHubProject\\lazy-mock\\ui\\src.mjs doesn't exist\n      .js\n        Field 'browser' doesn't contain a valid alias configuration\n        G:\\GitHubProject\\lazy-mock\\ui\\src.js doesn't exist\n      .json\n        Field 'browser' doesn't contain a valid alias configuration\n        G:\\GitHubProject\\lazy-mock\\ui\\src.json doesn't exist\n      as directory\n        existing directory\n          using path: G:\\GitHubProject\\lazy-mock\\ui\\src\\index\n            using description file: G:\\GitHubProject\\lazy-mock\\ui\\package.json (relative path: ./src/index)\n              no extension\n                Field 'browser' doesn't contain a valid alias configuration\n                G:\\GitHubProject\\lazy-mock\\ui\\src\\index doesn't exist\n              .wasm\n                Field 'browser' doesn't contain a valid alias configuration\n                G:\\GitHubProject\\lazy-mock\\ui\\src\\index.wasm doesn't exist\n              .mjs\n                Field 'browser' doesn't contain a valid alias configuration\n                G:\\GitHubProject\\lazy-mock\\ui\\src\\index.mjs doesn't exist\n              .js\n                Field 'browser' doesn't contain a valid alias configuration\n                G:\\GitHubProject\\lazy-mock\\ui\\src\\index.js doesn't exist\n              .json\n                Field 'browser' doesn't contain a valid alias configuration\n                G:\\GitHubProject\\lazy-mock\\ui\\src\\index.json doesn't exist"
+  ],
+  "warnings": [
+    "configuration\nThe 'mode' option has not been set, webpack will fallback to 'production' for this value. Set 'mode' option to 'development' or 'production' to enable defaults for each environment.\nYou can also set it to 'none' to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/"
+  ],
+  "version": "4.41.0",
+  "hash": "fbe98804785480cbe532",
+  "time": 42,
+  "builtAt": 1570375234169,
+  "publicPath": "",
+  "outputPath": "G:\\GitHubProject\\lazy-mock\\ui\\dist",
+  "assetsByChunkName": {},
+  "assets": [],
+  "filteredAssets": 0,
+  "entrypoints": {},
+  "namedChunkGroups": {},
+  "chunks": [],
+  "modules": [],
+  "filteredModules": 0,
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 1,
+      "debug": false
+    }
+  },
+  "children": []
+}

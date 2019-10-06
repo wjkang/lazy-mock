@@ -4,6 +4,8 @@ const webpack = require('webpack')
 const commonConfig = require('./common')
 const Dotenv = require('dotenv-webpack')
 const WebpackBar = require('webpackbar')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+	.BundleAnalyzerPlugin
 
 module.exports = merge(commonConfig, {
 	mode: 'development',
@@ -32,6 +34,10 @@ module.exports = merge(commonConfig, {
 		}),
 		new WebpackBar({
 			profile: true
+		}),
+		new BundleAnalyzerPlugin({
+			analyzerMode: 'disabled', // 不启动展示打包报告的http服务器
+			generateStatsFile: true // 是否生成stats.json文件
 		})
 	]
 })
