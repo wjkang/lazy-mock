@@ -27,7 +27,7 @@ module.exports = {
 						options: {
 							// you can specify a publicPath here
 							// by default it uses publicPath in webpackOptions.output
-							//publicPath: '../',
+							publicPath: '../css',
 							hmr: process.env.NODE_ENV === 'development'
 						}
 					},
@@ -56,12 +56,31 @@ module.exports = {
 			}
 		]
 	},
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				vendor: {
+					name: 'vendor',
+					test: /[\\/]node_modules[\\/]/,
+					chunks: 'all',
+					priority: 10 // 优先级
+				},
+				common: {
+					name: 'common',
+					test: /[\\/]src[\\/]/,
+					minSize: 1024,
+					chunks: 'all',
+					priority: 5
+				}
+			}
+		}
+	},
 	plugins: [
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// all options are optional
-			filename: '[name].css',
-			chunkFilename: '[id].css',
+			filename: 'css/[name].css',
+			//chunkFilename: 'css/[name].css',
 			ignoreOrder: false // Enable to remove warnings about conflicting order
 		}),
 		new CheckerPlugin(),
