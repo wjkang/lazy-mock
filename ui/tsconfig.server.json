@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"target": "es2017",
+		"sourceMap": true,
+		"outDir": "./server-dist",
+		"baseUrl": "./nest-server",
+		"incremental": true,
+		"types": []
+	},
+	"include": [
+		"./nest-server/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"test",
+		"dist",
+		"server-dist",
+		"src",
+		"tests",
+		"**/*spec.ts"
+	]
+}
