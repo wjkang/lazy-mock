@@ -104,7 +104,7 @@ module.exports = {
 					priority: 10 // 优先级
 				},
 				common: {
-					name: 'common',
+					//name: 'common',
 					test: /[\\/]src[\\/]/,
 					minSize: 1024,
 					chunks: 'all',
